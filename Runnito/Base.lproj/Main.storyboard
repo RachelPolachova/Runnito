@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xr6-iE-K96">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Archive-->
+        <scene sceneID="AHR-zs-Veb">
+            <objects>
+                <viewController id="Gus-c6-jet" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aNZ-82-FyF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="QR2-qN-65l"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Archive" image="archive_b" id="GuJ-2H-8nU"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gtC-dl-y8Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="613" y="-72"/>
+        </scene>
+        <!--Activity View Controller-->
+        <scene sceneID="q0Z-FH-yfI">
+            <objects>
+                <viewController id="9i8-RQ-PZ3" customClass="ActivityViewController" customModule="Runnito" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6qx-k8-Oay">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PV4-17-4eu">
+                                <rect key="frame" x="82" y="119" width="211" height="60"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <color key="textColor" red="0.76862745098039209" green="0.71372549019607845" blue="0.60392156862745094" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uqE-O6-fQk">
+                                <rect key="frame" x="143" y="429" width="89" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="START"/>
+                                <connections>
+                                    <action selector="startButtonPressed:" destination="9i8-RQ-PZ3" eventType="touchUpInside" id="sC0-L3-chs"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZXa-Gb-V1s">
+                                <rect key="frame" x="55" y="429" width="116" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="CANCEL"/>
+                                <connections>
+                                    <action selector="cancelButtonPressed:" destination="9i8-RQ-PZ3" eventType="touchUpInside" id="pqO-gJ-kwh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S75-NF-Tna">
+                                <rect key="frame" x="238" y="429" width="82" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="DONE"/>
+                                <connections>
+                                    <action selector="doneButtonPressed:" destination="9i8-RQ-PZ3" eventType="touchUpInside" id="pnK-Dn-xbp"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.050980392156862744" green="0.12156862745098039" blue="0.12941176470588234" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.80000000000000004" green="0.58823529411764708" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="uqE-O6-fQk" firstAttribute="top" secondItem="PV4-17-4eu" secondAttribute="bottom" constant="250" id="8Nd-w7-ICn"/>
+                            <constraint firstItem="ZXa-Gb-V1s" firstAttribute="top" secondItem="PV4-17-4eu" secondAttribute="bottom" constant="250" id="Ab4-Jj-K91"/>
+                            <constraint firstItem="uqE-O6-fQk" firstAttribute="centerX" secondItem="6qx-k8-Oay" secondAttribute="centerX" id="CBI-3c-tVT"/>
+                            <constraint firstItem="PV4-17-4eu" firstAttribute="top" secondItem="M4P-e7-9zB" secondAttribute="top" constant="55" id="HCM-Db-lFI"/>
+                            <constraint firstItem="ZXa-Gb-V1s" firstAttribute="leading" secondItem="M4P-e7-9zB" secondAttribute="leading" constant="55" id="SMJ-lZ-kLp"/>
+                            <constraint firstItem="M4P-e7-9zB" firstAttribute="trailing" secondItem="S75-NF-Tna" secondAttribute="trailing" constant="55" id="Vna-vL-hZZ"/>
+                            <constraint firstItem="S75-NF-Tna" firstAttribute="top" secondItem="PV4-17-4eu" secondAttribute="bottom" constant="250" id="j0K-Fs-jyn"/>
+                            <constraint firstItem="PV4-17-4eu" firstAttribute="centerX" secondItem="6qx-k8-Oay" secondAttribute="centerX" id="oFD-sT-hxe"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="M4P-e7-9zB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="6GU-GF-rEA"/>
+                    <connections>
+                        <outlet property="cancelButton" destination="ZXa-Gb-V1s" id="2qY-tR-Cp0"/>
+                        <outlet property="doneButton" destination="S75-NF-Tna" id="65z-S6-Wmw"/>
+                        <outlet property="startButton" destination="uqE-O6-fQk" id="AQo-VC-pSi"/>
+                        <outlet property="timeLabel" destination="PV4-17-4eu" id="Hqp-Ff-2LM"/>
+                        <segue destination="ebj-bI-Yu4" kind="push" identifier="saveActivitySegue" id="QYz-Ae-M81"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KGA-w0-aLP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1551.2" y="-736.28185907046486"/>
+        </scene>
+        <!--Save activity-->
+        <scene sceneID="KNm-nz-4a9">
+            <objects>
+                <viewController id="ebj-bI-Yu4" customClass="SaveActivityViewController" customModule="Runnito" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cOB-Dj-LoQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="21. Jan 2019" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0O9-M0-hjF">
+                                <rect key="frame" x="139.5" y="204" width="96" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.76862745099999996" green="0.71372549019999998" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pu0-W4-owR">
+                                <rect key="frame" x="0.0" y="402" width="375" height="216"/>
+                                <color key="tintColor" red="0.76862745099999996" green="0.71372549019999998" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="ebj-bI-Yu4" id="sVN-OP-jWE"/>
+                                    <outlet property="delegate" destination="ebj-bI-Yu4" id="Luf-mE-Opn"/>
+                                </connections>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ghl-wg-1a0">
+                                <rect key="frame" x="82" y="119" width="211" height="60"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <color key="textColor" red="0.80000000000000004" green="0.58823529409999997" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select activity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K9s-Ru-hwP">
+                                <rect key="frame" x="133.5" y="366" width="108" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.76862745099999996" green="0.71372549019999998" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.078431372550000003" green="0.20392156859999999" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="K9s-Ru-hwP" firstAttribute="centerX" secondItem="cOB-Dj-LoQ" secondAttribute="centerX" id="5C0-BY-hzK"/>
+                            <constraint firstItem="ghl-wg-1a0" firstAttribute="centerX" secondItem="cOB-Dj-LoQ" secondAttribute="centerX" id="5Zm-7J-hzo"/>
+                            <constraint firstItem="0O9-M0-hjF" firstAttribute="top" secondItem="ghl-wg-1a0" secondAttribute="bottom" constant="25" id="SXW-9q-jpZ"/>
+                            <constraint firstItem="0O9-M0-hjF" firstAttribute="centerX" secondItem="cOB-Dj-LoQ" secondAttribute="centerX" id="UPs-Pi-Je1"/>
+                            <constraint firstItem="ghl-wg-1a0" firstAttribute="top" secondItem="qfo-1e-lDW" secondAttribute="top" constant="55" id="Yb5-DX-cNx"/>
+                            <constraint firstItem="pu0-W4-owR" firstAttribute="leading" secondItem="qfo-1e-lDW" secondAttribute="leading" id="YiD-JZ-sSG"/>
+                            <constraint firstItem="pu0-W4-owR" firstAttribute="top" secondItem="K9s-Ru-hwP" secondAttribute="bottom" constant="15" id="hXe-gx-dEn"/>
+                            <constraint firstItem="pu0-W4-owR" firstAttribute="bottom" secondItem="qfo-1e-lDW" secondAttribute="bottom" id="kxa-MY-EME"/>
+                            <constraint firstItem="pu0-W4-owR" firstAttribute="trailing" secondItem="qfo-1e-lDW" secondAttribute="trailing" id="oG5-4q-fUR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="qfo-1e-lDW"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Save activity" id="8rH-vb-6OG">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="iWP-u7-NFd">
+                            <color key="tintColor" red="0.80000000000000004" green="0.58823529409999997" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" red="0.80000000000000004" green="0.58823529409999997" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="dateLabel" destination="0O9-M0-hjF" id="7Cz-W2-dRm"/>
+                        <outlet property="pickerView" destination="pu0-W4-owR" id="v7Y-qk-xvZ"/>
+                        <outlet property="selectedActivity" destination="K9s-Ru-hwP" id="kWr-Zq-CQw"/>
+                        <outlet property="timeLabel" destination="ghl-wg-1a0" id="0kD-NQ-239"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1EL-4z-DCP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2312" y="-735"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="0Ln-of-avR">
+            <objects>
+                <tabBarController id="xr6-iE-K96" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iOG-QY-k9W">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" red="0.80000000000000004" green="0.58823529409999997" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.078431372550000003" green="0.20392156859999999" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" red="0.80000000000000004" green="0.58823529409999997" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </tabBar>
+                    <connections>
+                        <segue destination="i5U-Gp-p1h" kind="relationship" relationship="viewControllers" id="BVv-lh-UyE"/>
+                        <segue destination="Gus-c6-jet" kind="relationship" relationship="viewControllers" id="ogT-Rp-pFy"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XYT-bH-u6J" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-339" y="-405"/>
+        </scene>
+        <!--Activity-->
+        <scene sceneID="HMg-2F-zpW">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="i5U-Gp-p1h" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Activity" image="runner_b" id="Yv5-ZB-5Wk"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="sjr-Su-BJz">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.050980392156862744" green="0.12156862745098039" blue="0.12941176470588234" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.76862745099999996" green="0.71372549019999998" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" red="0.80000000000000004" green="0.58823529409999997" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="9i8-RQ-PZ3" kind="relationship" relationship="rootViewController" id="xwa-5x-WBH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z3l-yp-FYp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="612" y="-736.28185907046486"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="archive_b" width="32" height="32"/>
+        <image name="runner_b" width="32" height="32"/>
+    </resources>
+</document>
