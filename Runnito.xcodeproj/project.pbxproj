@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		027CBE390E4A2E994A6B4D99 /* Pods_Runnito.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C29F3D95505F46DF5724EEDE /* Pods_Runnito.framework */; };
 		CC69710D21DFE5BD00435022 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC69710C21DFE5BD00435022 /* AppDelegate.swift */; };
 		CC69710F21DFE5BD00435022 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC69710E21DFE5BD00435022 /* ViewController.swift */; };
 		CC69711221DFE5BD00435022 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC69711021DFE5BD00435022 /* Main.storyboard */; };
@@ -14,9 +15,14 @@
 		CC69711721DFE5BF00435022 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC69711521DFE5BF00435022 /* LaunchScreen.storyboard */; };
 		CC69711F21DFE7CA00435022 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC69711E21DFE7CA00435022 /* ActivityViewController.swift */; };
 		CC69712121DFF88C00435022 /* SaveActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC69712021DFF88C00435022 /* SaveActivityViewController.swift */; };
+		CCA3ABAC21E11A1E008BCA02 /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3ABAB21E11A1E008BCA02 /* Run.swift */; };
+		CCA3ABAE21E11A3B008BCA02 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3ABAD21E11A3B008BCA02 /* Location.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0009AB868D5F72C42F146FAF /* Pods-Runnito.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runnito.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Runnito/Pods-Runnito.debug.xcconfig"; sourceTree = "<group>"; };
+		4050A60566F3D2888CDD90F5 /* Pods-Runnito.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runnito.release.xcconfig"; path = "Pods/Target Support Files/Pods-Runnito/Pods-Runnito.release.xcconfig"; sourceTree = "<group>"; };
+		C29F3D95505F46DF5724EEDE /* Pods_Runnito.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runnito.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC69710921DFE5BD00435022 /* Runnito.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runnito.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC69710C21DFE5BD00435022 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC69710E21DFE5BD00435022 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -26,6 +32,8 @@
 		CC69711821DFE5BF00435022 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC69711E21DFE7CA00435022 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		CC69712021DFF88C00435022 /* SaveActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveActivityViewController.swift; sourceTree = "<group>"; };
+		CCA3ABAB21E11A1E008BCA02 /* Run.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
+		CCA3ABAD21E11A3B008BCA02 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +41,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				027CBE390E4A2E994A6B4D99 /* Pods_Runnito.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		60537AF50A4FD23BC9A241B8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C29F3D95505F46DF5724EEDE /* Pods_Runnito.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CC69710021DFE5BD00435022 = {
 			isa = PBXGroup;
 			children = (
 				CC69710B21DFE5BD00435022 /* Runnito */,
 				CC69710A21DFE5BD00435022 /* Products */,
+				D1231746F506B9705852C8CF /* Pods */,
+				60537AF50A4FD23BC9A241B8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,16 +77,51 @@
 		CC69710B21DFE5BD00435022 /* Runnito */ = {
 			isa = PBXGroup;
 			children = (
+				CCFE859521E119CA00F693F1 /* Views */,
+				CCFE859421E119B200F693F1 /* Controllers */,
+				CCFE859321E119A700F693F1 /* Data Model */,
 				CC69710C21DFE5BD00435022 /* AppDelegate.swift */,
-				CC69710E21DFE5BD00435022 /* ViewController.swift */,
-				CC69711E21DFE7CA00435022 /* ActivityViewController.swift */,
-				CC69712021DFF88C00435022 /* SaveActivityViewController.swift */,
-				CC69711021DFE5BD00435022 /* Main.storyboard */,
 				CC69711321DFE5BF00435022 /* Assets.xcassets */,
-				CC69711521DFE5BF00435022 /* LaunchScreen.storyboard */,
 				CC69711821DFE5BF00435022 /* Info.plist */,
 			);
 			path = Runnito;
+			sourceTree = "<group>";
+		};
+		CCFE859321E119A700F693F1 /* Data Model */ = {
+			isa = PBXGroup;
+			children = (
+				CCA3ABAB21E11A1E008BCA02 /* Run.swift */,
+				CCA3ABAD21E11A3B008BCA02 /* Location.swift */,
+			);
+			path = "Data Model";
+			sourceTree = "<group>";
+		};
+		CCFE859421E119B200F693F1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CC69710E21DFE5BD00435022 /* ViewController.swift */,
+				CC69711E21DFE7CA00435022 /* ActivityViewController.swift */,
+				CC69712021DFF88C00435022 /* SaveActivityViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		CCFE859521E119CA00F693F1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CC69711021DFE5BD00435022 /* Main.storyboard */,
+				CC69711521DFE5BF00435022 /* LaunchScreen.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D1231746F506B9705852C8CF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0009AB868D5F72C42F146FAF /* Pods-Runnito.debug.xcconfig */,
+				4050A60566F3D2888CDD90F5 /* Pods-Runnito.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,9 +131,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CC69711B21DFE5BF00435022 /* Build configuration list for PBXNativeTarget "Runnito" */;
 			buildPhases = (
+				91C5F76AF4AD965CDB0CDDF0 /* [CP] Check Pods Manifest.lock */,
 				CC69710521DFE5BD00435022 /* Sources */,
 				CC69710621DFE5BD00435022 /* Frameworks */,
 				CC69710721DFE5BD00435022 /* Resources */,
+				3075B2278435524C112188B0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -102,6 +158,11 @@
 				TargetAttributes = {
 					CC69710821DFE5BD00435022 = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -136,15 +197,58 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3075B2278435524C112188B0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Runnito/Pods-Runnito-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Runnito/Pods-Runnito-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		91C5F76AF4AD965CDB0CDDF0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Runnito-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		CC69710521DFE5BD00435022 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				CC69712121DFF88C00435022 /* SaveActivityViewController.swift in Sources */,
+				CCA3ABAC21E11A1E008BCA02 /* Run.swift in Sources */,
 				CC69710F21DFE5BD00435022 /* ViewController.swift in Sources */,
 				CC69711F21DFE7CA00435022 /* ActivityViewController.swift in Sources */,
 				CC69710D21DFE5BD00435022 /* AppDelegate.swift in Sources */,
+				CCA3ABAE21E11A3B008BCA02 /* Location.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +392,7 @@
 		};
 		CC69711C21DFE5BF00435022 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0009AB868D5F72C42F146FAF /* Pods-Runnito.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -306,6 +411,7 @@
 		};
 		CC69711D21DFE5BF00435022 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4050A60566F3D2888CDD90F5 /* Pods-Runnito.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
