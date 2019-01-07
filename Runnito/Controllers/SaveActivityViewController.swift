@@ -87,7 +87,7 @@ class SaveActivityViewController: UIViewController,UIPickerViewDelegate, UIPicke
     }
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        let atributedString = NSAttributedString(string: activities[row], attributes: [NSAttributedString.Key.foregroundColor : UIColor(hexString: "#C4B69A")])
+        let atributedString = NSAttributedString(string: activities[row], attributes: [NSAttributedString.Key.foregroundColor : UIColor(hexString: "#3D414C")])
         return atributedString
     }
 
