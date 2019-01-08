@@ -62,9 +62,11 @@ class SaveActivityViewController: UIViewController,UIPickerViewDelegate, UIPicke
                     newRun.locations.append(newLocation)
                 }
                 realm.add(newRun)
+                savedSuccessfuly()
             }
         } catch {
             print("Error during saving run.")
+            savingError()
         }
         
     }
@@ -91,6 +93,25 @@ class SaveActivityViewController: UIViewController,UIPickerViewDelegate, UIPicke
         return atributedString
     }
 
+    func savedSuccessfuly() {
+        let alertController = UIAlertController(title: "OK", message: "Activity was successfuly saved.", preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
+            let activityVC = self.storyboard?.instantiateViewController(withIdentifier: "activityVC") as! ActivityViewController
+            self.present(activityVC, animated: true, completion: nil)
+        }
+        
+        alertController.addAction(okButton)
+        present(alertController,animated: true, completion: nil)
+        
+    }
+    
+    func savingError() {
+        let alertController = UIAlertController(title: "Error", message: "Please try save your activity again.", preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(okButton)
+        present(alertController, animated: true, completion: nil)
+    }
+    
 
 }
 

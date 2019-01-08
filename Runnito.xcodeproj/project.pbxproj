@@ -18,6 +18,7 @@
 		CCA3ABAC21E11A1E008BCA02 /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3ABAB21E11A1E008BCA02 /* Run.swift */; };
 		CCA3ABAE21E11A3B008BCA02 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3ABAD21E11A3B008BCA02 /* Location.swift */; };
 		CCA3ABB221E3C2FE008BCA02 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3ABB121E3C2FE008BCA02 /* ActivityViewController.swift */; };
+		CCDE778921E53494001726ED /* ChooseActivityPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDE778821E53494001726ED /* ChooseActivityPopupViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		CCA3ABAB21E11A1E008BCA02 /* Run.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
 		CCA3ABAD21E11A3B008BCA02 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		CCA3ABB121E3C2FE008BCA02 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		CCDE778821E53494001726ED /* ChooseActivityPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseActivityPopupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				CC69711E21DFE7CA00435022 /* NewActivityViewController.swift */,
 				CC69712021DFF88C00435022 /* SaveActivityViewController.swift */,
 				CCA3ABB121E3C2FE008BCA02 /* ActivityViewController.swift */,
+				CCDE778821E53494001726ED /* ChooseActivityPopupViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 				CC69712121DFF88C00435022 /* SaveActivityViewController.swift in Sources */,
 				CCA3ABAC21E11A1E008BCA02 /* Run.swift in Sources */,
 				CC69710F21DFE5BD00435022 /* ViewController.swift in Sources */,
+				CCDE778921E53494001726ED /* ChooseActivityPopupViewController.swift in Sources */,
 				CC69711F21DFE7CA00435022 /* NewActivityViewController.swift in Sources */,
 				CCA3ABB221E3C2FE008BCA02 /* ActivityViewController.swift in Sources */,
 				CC69710D21DFE5BD00435022 /* AppDelegate.swift in Sources */,
