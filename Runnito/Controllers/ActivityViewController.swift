@@ -14,7 +14,7 @@ class ActivityViewController: UIViewController {
     @IBOutlet weak var notifierButton: UIButton!
     @IBOutlet weak var startButton: UIButton!
     
-    var choosedActivity = ""
+    var pickedActivity = ActivitiesEnum(rawValue: 0)
     var notifierValue = 0
     
     override func viewDidLoad() {
@@ -25,16 +25,6 @@ class ActivityViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     @IBAction func chooseActivityButtonPressed(_ sender: Any) {
         
         
@@ -52,6 +42,8 @@ class ActivityViewController: UIViewController {
     
     @IBAction func startButtonPressed(_ sender: Any) {
         
+        print("start button pressed: notifier: \(notifierValue), picked activity: \(pickedActivity?.description)")
+        
         performSegue(withIdentifier: "toNewActivityVCSegue", sender: nil)
         
     }
@@ -68,6 +60,15 @@ class ActivityViewController: UIViewController {
             popup.delegate = self
             popup.activity = false
         }
+        
+        if segue.identifier == "toNewActivityVCSegue" {
+            let startVC = segue.destination as! NewActivityViewController
+            startVC.pickedActivity = pickedActivity
+            startVC.notfifierValue = notifierValue
+            
+        }
+        
+        
     }
     
     func setUI() {
@@ -88,18 +89,26 @@ class ActivityViewController: UIViewController {
 }
 
 extension ActivityViewController: PopupDelegate {
-    func popupValueSelected(value: String, isActivity: Bool) {
-        if (isActivity) {
-            choosedActivity = value
-            chooseActivityButton.setTitle(value, for: .normal)
-        } else {
-            notifierValue = Int(value)!
-            notifierButton.setTitle(value, for: .normal)
-        }
+    
+    
+    func popupValueSelected(value: Int) {
+        notifierValue = value
+        notifierButton.setTitle(String(value), for: .normal)
     }
     
+    func popupValueSelected(value: ActivitiesEnum) {
+        pickedActivity = value
+        chooseActivityButton.setTitle(value.description, for: .normal
+        )
+    }
     
-    
-    
-    
-}
+//    func popupValueSelected(value: String, isActivity: Bool) {
+//        if (isActivity) {
+//            choosedActivity = value
+//            chooseActivityButton.setTitle(value, for: .normal)
+//        } else {
+//            notifierValue = Int(value)!
+//            notifierButton.setTitle(value, for: .normal)
+//        }
+    }
+

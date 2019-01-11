@@ -9,5 +9,6 @@
 import Foundation
 
 protocol PopupDelegate {
-    func popupValueSelected(value: String, isActivity: Bool)
+    func popupValueSelected(value: Int)
+    func popupValueSelected(value: ActivitiesEnum)
 }

@@ -17,8 +17,8 @@ class PopupActivityPopupViewController: UIViewController {
     @IBOutlet weak var timeNotifierLabel: UILabel!
     @IBOutlet weak var valueField: UITextField!
     
-    let activities = ["Running","Walking","Cycling","Hiking"]
-    var pickedActivity = ""
+    
+    var pickedActivity = ActivitiesEnum(rawValue: 0)!
     
     var activity = true
     var delegate: PopupDelegate?
@@ -35,21 +35,24 @@ class PopupActivityPopupViewController: UIViewController {
         
         if (activity) {
             
-            delegate?.popupValueSelected(value: pickedActivity, isActivity: true)
+            delegate?.popupValueSelected(value: pickedActivity)
+//            delegate?.popupValueSelected(value: pickedActivity, isActivity: true)
             dismiss(animated: true, completion: nil)
             
         } else {
             
             if let minutes = valueField.text {
                 
-                if Int(minutes) != nil {
+                if let value = Int(minutes) {
                     
-                    delegate?.popupValueSelected(value: minutes, isActivity: false)
+                    delegate?.popupValueSelected(value: value)
+//                    delegate?.popupValueSelected(value: minutes, isActivity: false)
                     dismiss(animated: true, completion: nil)
                     
                 } else if minutes == "" {
                     
-                    delegate?.popupValueSelected(value: "0", isActivity: false)
+                    delegate?.popupValueSelected(value: 0)
+//                    delegate?.popupValueSelected(value: "0", isActivity: false)
                     dismiss(animated: true, completion: nil)
                     
                 } else {
@@ -90,15 +93,17 @@ extension PopupActivityPopupViewController: UIPickerViewDelegate, UIPickerViewDa
     
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return activities.count
+        return ActivitiesEnum.allCases.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return activities[row]
+        return ActivitiesEnum(rawValue: row)?.description
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        pickedActivity = activities[row]
+        if let activity = ActivitiesEnum(rawValue: row) {
+            pickedActivity = activity
+        }
     }
 }
 

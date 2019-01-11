@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		027CBE390E4A2E994A6B4D99 /* Pods_Runnito.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C29F3D95505F46DF5724EEDE /* Pods_Runnito.framework */; };
 		CC02471B21E8B18200985763 /* PopupDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02471A21E8B18200985763 /* PopupDelegate.swift */; };
+		CC02471F21E8D9EE00985763 /* ActivitiesEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02471E21E8D9EE00985763 /* ActivitiesEnum.swift */; };
+		CC02472F21E93D6E00985763 /* ArchiveTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02472E21E93D6E00985763 /* ArchiveTableViewController.swift */; };
+		CC02473521E9452800985763 /* CurrentActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02473421E9452800985763 /* CurrentActivityTableViewController.swift */; };
 		CC69710D21DFE5BD00435022 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC69710C21DFE5BD00435022 /* AppDelegate.swift */; };
 		CC69710F21DFE5BD00435022 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC69710E21DFE5BD00435022 /* ViewController.swift */; };
 		CC69711221DFE5BD00435022 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC69711021DFE5BD00435022 /* Main.storyboard */; };
@@ -28,6 +31,9 @@
 		4050A60566F3D2888CDD90F5 /* Pods-Runnito.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runnito.release.xcconfig"; path = "Pods/Target Support Files/Pods-Runnito/Pods-Runnito.release.xcconfig"; sourceTree = "<group>"; };
 		C29F3D95505F46DF5724EEDE /* Pods_Runnito.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runnito.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC02471A21E8B18200985763 /* PopupDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDelegate.swift; sourceTree = "<group>"; };
+		CC02471E21E8D9EE00985763 /* ActivitiesEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesEnum.swift; sourceTree = "<group>"; };
+		CC02472E21E93D6E00985763 /* ArchiveTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveTableViewController.swift; sourceTree = "<group>"; };
+		CC02473421E9452800985763 /* CurrentActivityTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentActivityTableViewController.swift; sourceTree = "<group>"; };
 		CC69710921DFE5BD00435022 /* Runnito.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runnito.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC69710C21DFE5BD00435022 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC69710E21DFE5BD00435022 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +70,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CC02472021E8DCDB00985763 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				CC02471E21E8D9EE00985763 /* ActivitiesEnum.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		CC02472121E8DCE800985763 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				CC02471A21E8B18200985763 /* PopupDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
 		CC69710021DFE5BD00435022 = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +109,8 @@
 			children = (
 				CCFE859521E119CA00F693F1 /* Views */,
 				CCFE859421E119B200F693F1 /* Controllers */,
+				CC02472121E8DCE800985763 /* Delegates */,
+				CC02472021E8DCDB00985763 /* Enums */,
 				CCFE859321E119A700F693F1 /* Data Model */,
 				CC69710C21DFE5BD00435022 /* AppDelegate.swift */,
 				CC69711321DFE5BF00435022 /* Assets.xcassets */,
@@ -108,11 +132,12 @@
 			isa = PBXGroup;
 			children = (
 				CC69710E21DFE5BD00435022 /* ViewController.swift */,
-				CC69711E21DFE7CA00435022 /* NewActivityViewController.swift */,
-				CC69712021DFF88C00435022 /* SaveActivityViewController.swift */,
 				CCA3ABB121E3C2FE008BCA02 /* ActivityViewController.swift */,
 				CCDE778821E53494001726ED /* PopupActivityPopupViewController.swift */,
-				CC02471A21E8B18200985763 /* PopupDelegate.swift */,
+				CC69711E21DFE7CA00435022 /* NewActivityViewController.swift */,
+				CC69712021DFF88C00435022 /* SaveActivityViewController.swift */,
+				CC02472E21E93D6E00985763 /* ArchiveTableViewController.swift */,
+				CC02473421E9452800985763 /* CurrentActivityTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -256,14 +281,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC02472F21E93D6E00985763 /* ArchiveTableViewController.swift in Sources */,
 				CC69712121DFF88C00435022 /* SaveActivityViewController.swift in Sources */,
 				CCA3ABAC21E11A1E008BCA02 /* Run.swift in Sources */,
 				CC69710F21DFE5BD00435022 /* ViewController.swift in Sources */,
 				CCDE778921E53494001726ED /* PopupActivityPopupViewController.swift in Sources */,
 				CC69711F21DFE7CA00435022 /* NewActivityViewController.swift in Sources */,
+				CC02471F21E8D9EE00985763 /* ActivitiesEnum.swift in Sources */,
 				CCA3ABB221E3C2FE008BCA02 /* ActivityViewController.swift in Sources */,
 				CC69710D21DFE5BD00435022 /* AppDelegate.swift in Sources */,
 				CCA3ABAE21E11A3B008BCA02 /* Location.swift in Sources */,
+				CC02473521E9452800985763 /* CurrentActivityTableViewController.swift in Sources */,
 				CC02471B21E8B18200985763 /* PopupDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

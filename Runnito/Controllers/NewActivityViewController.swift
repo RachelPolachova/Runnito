@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import AVFoundation
 
 class NewActivityViewController: UIViewController {
 
@@ -27,9 +28,14 @@ class NewActivityViewController: UIViewController {
     var locationsList: [CLLocation] = []
     var distance = Measurement(value: 0, unit: UnitLength.meters)
     
+    var notfifierValue = 0
+    var pickedActivity = ActivitiesEnum(rawValue: 0)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("notifier: \(notfifierValue), picked activity: \(pickedActivity?.description)")
         
         setUI()
         
@@ -89,27 +95,6 @@ class NewActivityViewController: UIViewController {
         
     }
     
-    @IBAction func cancelButtonPressed(_ sender: UIButton) {
-        
-//        let alertController = UIAlertController(title: "Cancel the activity", message: "Are you sure?", preferredStyle: .alert)
-//
-//        let yesAction = UIAlertAction(title: "Yes", style: .destructive) { (UIAlertAction) in
-//            self.timer.invalidate()
-//            self.seconds = 0
-//            self.timeLabel.text = self.secondsToHoursAndMinutes(seconds: self.seconds)
-//            self.locationManager.stopUpdatingLocation()
-//
-//
-//
-//        }
-//
-//        let noAction = UIAlertAction(title: "No", style: .default)
-//
-//        alertController.addAction(yesAction)
-//        alertController.addAction(noAction)
-//        self.present(alertController,animated: true,completion: nil)
-        
-    }
     
     @IBAction func doneButtonPressed(_ sender: Any) {
         
@@ -137,6 +122,40 @@ class NewActivityViewController: UIViewController {
         timeLabel.text = secondsToHoursAndMinutes(seconds: seconds)
         distanceLabel.text = "\(distance)"
         
+        
+        if (seconds%(notfifierValue*60) == 0) {
+            notifier(seconds: seconds)
+        }
+        
+    }
+    
+    func notifier(seconds: Int) {
+        
+        var time = ""
+        
+        if seconds >= 3600 {
+            let h = String(seconds/3600)
+            let m = String((seconds%3600)/60)
+            let s = seconds%60
+            
+            time = "\(h) hours, \(m) minutes and \(s) seconds."
+        } else if seconds >= 60 && seconds < 3600 {
+            let m = seconds/60
+            let s = seconds%60
+            
+            time = "\(m) minutes and \(s) seconds."
+        } else {
+            time = "\(seconds) seconds."
+        }
+        
+        let string = "You are \(pickedActivity!.description) for " + time
+        
+        let utterance = AVSpeechUtterance(string: string)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+
+        
+        let synth = AVSpeechSynthesizer()
+        synth.speak(utterance)
     }
     
     func getTimeDifference(startDate: Date) -> Int {
@@ -157,9 +176,10 @@ class NewActivityViewController: UIViewController {
         saveController.duration = seconds
         saveController.distance = distance.value
         saveController.locationsList = locationsList
+        saveController.pickedActivity = pickedActivity
     }
     
-    // MARK: UI
+    // MARK: UI methods
     
     func setUI() {
         paceLabel.text = "0"
