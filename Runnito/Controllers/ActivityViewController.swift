@@ -13,6 +13,10 @@ class ActivityViewController: UIViewController {
     @IBOutlet weak var chooseActivityButton: UIButton!
     @IBOutlet weak var notifierButton: UIButton!
     @IBOutlet weak var startButton: UIButton!
+    
+    var choosedActivity = ""
+    var notifierValue = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,17 +36,38 @@ class ActivityViewController: UIViewController {
     }
     */
     @IBAction func chooseActivityButtonPressed(_ sender: Any) {
+        
+        
+        
     }
     @IBAction func notifierButtonPressed(_ sender: Any) {
+        
+        
+        
     }
+    
+    func goToPopup(isItActivity: Bool) {
+        
+    }
+    
     @IBAction func startButtonPressed(_ sender: Any) {
         
-        performSegue(withIdentifier: "activityStarted", sender: nil)
+        performSegue(withIdentifier: "toNewActivityVCSegue", sender: nil)
         
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //prepare segue
+        if segue.identifier == "toChooseActivitySegue" {
+            let popup = segue.destination as! PopupActivityPopupViewController
+            popup.delegate = self
+            popup.activity = true
+        }
+
+        if segue.identifier == "toNotifierSegue" {
+            let popup = segue.destination as! PopupActivityPopupViewController
+            popup.delegate = self
+            popup.activity = false
+        }
     }
     
     func setUI() {
@@ -59,5 +84,22 @@ class ActivityViewController: UIViewController {
         startButton.layer.shadowOpacity = 1
 
     }
+    
+}
+
+extension ActivityViewController: PopupDelegate {
+    func popupValueSelected(value: String, isActivity: Bool) {
+        if (isActivity) {
+            choosedActivity = value
+            chooseActivityButton.setTitle(value, for: .normal)
+        } else {
+            notifierValue = Int(value)!
+            notifierButton.setTitle(value, for: .normal)
+        }
+    }
+    
+    
+    
+    
     
 }

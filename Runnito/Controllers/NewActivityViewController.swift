@@ -44,6 +44,18 @@ class NewActivityViewController: UIViewController {
     }
     
     
+    override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
+        if parent == nil {
+            
+            timer.invalidate()
+            seconds = 0
+            locationManager.stopUpdatingLocation()
+            
+        }
+    }
+    
+    
     // MARK: Timer
     
     @objc func pauseWhenBackground(noti: Notification) {
@@ -79,22 +91,23 @@ class NewActivityViewController: UIViewController {
     
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
         
-        let alertController = UIAlertController(title: "Cancel the activity", message: "Are you sure?", preferredStyle: .alert)
-        
-        let yesAction = UIAlertAction(title: "Yes", style: .destructive) { (UIAlertAction) in
-            self.timer.invalidate()
-            self.seconds = 0
-            self.timeLabel.text = self.secondsToHoursAndMinutes(seconds: self.seconds)
-            self.locationManager.stopUpdatingLocation()
-        }
-        
-        let noAction = UIAlertAction(title: "No", style: .default) { (UIAlertAction) in
-            //bla
-        }
-        
-        alertController.addAction(yesAction)
-        alertController.addAction(noAction)
-        self.present(alertController,animated: true,completion: nil)
+//        let alertController = UIAlertController(title: "Cancel the activity", message: "Are you sure?", preferredStyle: .alert)
+//
+//        let yesAction = UIAlertAction(title: "Yes", style: .destructive) { (UIAlertAction) in
+//            self.timer.invalidate()
+//            self.seconds = 0
+//            self.timeLabel.text = self.secondsToHoursAndMinutes(seconds: self.seconds)
+//            self.locationManager.stopUpdatingLocation()
+//
+//
+//
+//        }
+//
+//        let noAction = UIAlertAction(title: "No", style: .default)
+//
+//        alertController.addAction(yesAction)
+//        alertController.addAction(noAction)
+//        self.present(alertController,animated: true,completion: nil)
         
     }
     
@@ -111,9 +124,7 @@ class NewActivityViewController: UIViewController {
         
         }
         
-        let noAction = UIAlertAction(title: "No", style: .default) { (UIAlertAction) in
-            //bla
-        }
+        let noAction = UIAlertAction(title: "No", style: .default)
         
         alertController.addAction(yesAction)
         alertController.addAction(noAction)
