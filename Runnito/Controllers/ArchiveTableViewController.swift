@@ -10,7 +10,7 @@ import UIKit
 
 class ArchiveTableViewController: UITableViewController {
     
-    var selectedActivity: ActivitiesEnum?
+    var selectedTypeOfActivity: ActivitiesEnum?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,14 +36,14 @@ class ArchiveTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedActivity = ActivitiesEnum(rawValue: indexPath.row)
+        selectedTypeOfActivity = ActivitiesEnum(rawValue: indexPath.row)
         performSegue(withIdentifier: "goToCurrentActivitySegue", sender: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        let currentActivityVC = segue.destination as! CurrentActivityTableViewController
-        currentActivityVC.selectedActivity = selectedActivity
+        let currentActivityVC = segue.destination as! SelectedTypeActivityTableViewController
+        currentActivityVC.selectedTypeOfActivity = selectedTypeOfActivity
         
     }
 

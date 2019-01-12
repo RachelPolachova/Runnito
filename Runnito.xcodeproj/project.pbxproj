@@ -11,7 +11,7 @@
 		CC02471B21E8B18200985763 /* PopupDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02471A21E8B18200985763 /* PopupDelegate.swift */; };
 		CC02471F21E8D9EE00985763 /* ActivitiesEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02471E21E8D9EE00985763 /* ActivitiesEnum.swift */; };
 		CC02472F21E93D6E00985763 /* ArchiveTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02472E21E93D6E00985763 /* ArchiveTableViewController.swift */; };
-		CC02473521E9452800985763 /* CurrentActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02473421E9452800985763 /* CurrentActivityTableViewController.swift */; };
+		CC02473521E9452800985763 /* SelectedTypeActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02473421E9452800985763 /* SelectedTypeActivityTableViewController.swift */; };
 		CC69710D21DFE5BD00435022 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC69710C21DFE5BD00435022 /* AppDelegate.swift */; };
 		CC69710F21DFE5BD00435022 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC69710E21DFE5BD00435022 /* ViewController.swift */; };
 		CC69711221DFE5BD00435022 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC69711021DFE5BD00435022 /* Main.storyboard */; };
@@ -22,6 +22,10 @@
 		CCA3ABAC21E11A1E008BCA02 /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3ABAB21E11A1E008BCA02 /* Run.swift */; };
 		CCA3ABAE21E11A3B008BCA02 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3ABAD21E11A3B008BCA02 /* Location.swift */; };
 		CCA3ABB221E3C2FE008BCA02 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3ABB121E3C2FE008BCA02 /* ActivityViewController.swift */; };
+		CCC43C4C21EA063C00692236 /* SelectedTypeActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC43C4A21EA063C00692236 /* SelectedTypeActivityTableViewCell.swift */; };
+		CCC43C5021EA1FE600692236 /* Timer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCC43C4F21EA1FE600692236 /* Timer.storyboard */; };
+		CCC43C5221EA200E00692236 /* Archive.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCC43C5121EA200E00692236 /* Archive.storyboard */; };
+		CCC43C5421EA232000692236 /* CurrentActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC43C5321EA232000692236 /* CurrentActivityViewController.swift */; };
 		CCD8947621E63CFD004A1425 /* PopupActivityViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCD8947521E63CFD004A1425 /* PopupActivityViewController.storyboard */; };
 		CCDE778921E53494001726ED /* PopupActivityPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDE778821E53494001726ED /* PopupActivityPopupViewController.swift */; };
 /* End PBXBuildFile section */
@@ -33,7 +37,7 @@
 		CC02471A21E8B18200985763 /* PopupDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDelegate.swift; sourceTree = "<group>"; };
 		CC02471E21E8D9EE00985763 /* ActivitiesEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesEnum.swift; sourceTree = "<group>"; };
 		CC02472E21E93D6E00985763 /* ArchiveTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveTableViewController.swift; sourceTree = "<group>"; };
-		CC02473421E9452800985763 /* CurrentActivityTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentActivityTableViewController.swift; sourceTree = "<group>"; };
+		CC02473421E9452800985763 /* SelectedTypeActivityTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedTypeActivityTableViewController.swift; sourceTree = "<group>"; };
 		CC69710921DFE5BD00435022 /* Runnito.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runnito.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC69710C21DFE5BD00435022 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC69710E21DFE5BD00435022 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -46,6 +50,10 @@
 		CCA3ABAB21E11A1E008BCA02 /* Run.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
 		CCA3ABAD21E11A3B008BCA02 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		CCA3ABB121E3C2FE008BCA02 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		CCC43C4A21EA063C00692236 /* SelectedTypeActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedTypeActivityTableViewCell.swift; sourceTree = "<group>"; };
+		CCC43C4F21EA1FE600692236 /* Timer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Timer.storyboard; sourceTree = "<group>"; };
+		CCC43C5121EA200E00692236 /* Archive.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Archive.storyboard; sourceTree = "<group>"; };
+		CCC43C5321EA232000692236 /* CurrentActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentActivityViewController.swift; sourceTree = "<group>"; };
 		CCD8947521E63CFD004A1425 /* PopupActivityViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PopupActivityViewController.storyboard; sourceTree = "<group>"; };
 		CCDE778821E53494001726ED /* PopupActivityPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupActivityPopupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,6 +115,7 @@
 		CC69710B21DFE5BD00435022 /* Runnito */ = {
 			isa = PBXGroup;
 			children = (
+				CCC43C4721EA05F200692236 /* Custom Cells */,
 				CCFE859521E119CA00F693F1 /* Views */,
 				CCFE859421E119B200F693F1 /* Controllers */,
 				CC02472121E8DCE800985763 /* Delegates */,
@@ -117,6 +126,14 @@
 				CC69711821DFE5BF00435022 /* Info.plist */,
 			);
 			path = Runnito;
+			sourceTree = "<group>";
+		};
+		CCC43C4721EA05F200692236 /* Custom Cells */ = {
+			isa = PBXGroup;
+			children = (
+				CCC43C4A21EA063C00692236 /* SelectedTypeActivityTableViewCell.swift */,
+			);
+			path = "Custom Cells";
 			sourceTree = "<group>";
 		};
 		CCFE859321E119A700F693F1 /* Data Model */ = {
@@ -137,7 +154,8 @@
 				CC69711E21DFE7CA00435022 /* NewActivityViewController.swift */,
 				CC69712021DFF88C00435022 /* SaveActivityViewController.swift */,
 				CC02472E21E93D6E00985763 /* ArchiveTableViewController.swift */,
-				CC02473421E9452800985763 /* CurrentActivityTableViewController.swift */,
+				CC02473421E9452800985763 /* SelectedTypeActivityTableViewController.swift */,
+				CCC43C5321EA232000692236 /* CurrentActivityViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -145,6 +163,8 @@
 		CCFE859521E119CA00F693F1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CCC43C5121EA200E00692236 /* Archive.storyboard */,
+				CCC43C4F21EA1FE600692236 /* Timer.storyboard */,
 				CCD8947521E63CFD004A1425 /* PopupActivityViewController.storyboard */,
 				CC69711021DFE5BD00435022 /* Main.storyboard */,
 				CC69711521DFE5BF00435022 /* LaunchScreen.storyboard */,
@@ -226,8 +246,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCC43C5021EA1FE600692236 /* Timer.storyboard in Resources */,
 				CCD8947621E63CFD004A1425 /* PopupActivityViewController.storyboard in Resources */,
 				CC69711721DFE5BF00435022 /* LaunchScreen.storyboard in Resources */,
+				CCC43C5221EA200E00692236 /* Archive.storyboard in Resources */,
 				CC69711421DFE5BF00435022 /* Assets.xcassets in Resources */,
 				CC69711221DFE5BD00435022 /* Main.storyboard in Resources */,
 			);
@@ -290,8 +312,10 @@
 				CC02471F21E8D9EE00985763 /* ActivitiesEnum.swift in Sources */,
 				CCA3ABB221E3C2FE008BCA02 /* ActivityViewController.swift in Sources */,
 				CC69710D21DFE5BD00435022 /* AppDelegate.swift in Sources */,
+				CCC43C5421EA232000692236 /* CurrentActivityViewController.swift in Sources */,
 				CCA3ABAE21E11A3B008BCA02 /* Location.swift in Sources */,
-				CC02473521E9452800985763 /* CurrentActivityTableViewController.swift in Sources */,
+				CC02473521E9452800985763 /* SelectedTypeActivityTableViewController.swift in Sources */,
+				CCC43C4C21EA063C00692236 /* SelectedTypeActivityTableViewCell.swift in Sources */,
 				CC02471B21E8B18200985763 /* PopupDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

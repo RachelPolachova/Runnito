@@ -28,14 +28,14 @@ class NewActivityViewController: UIViewController {
     var locationsList: [CLLocation] = []
     var distance = Measurement(value: 0, unit: UnitLength.meters)
     
-    var notfifierValue = 0
+    var notifierValue = 0
     var pickedActivity = ActivitiesEnum(rawValue: 0)
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("notifier: \(notfifierValue), picked activity: \(pickedActivity?.description)")
+        print("notifier: \(notifierValue), picked activity: \(pickedActivity?.description)")
         
         setUI()
         
@@ -121,11 +121,15 @@ class NewActivityViewController: UIViewController {
         seconds += 1;
         timeLabel.text = secondsToHoursAndMinutes(seconds: seconds)
         distanceLabel.text = "\(distance)"
+        distanceLabel.text = String(format: "%.0f", ceil(distance.value))
         
         
-        if (seconds%(notfifierValue*60) == 0) {
-            notifier(seconds: seconds)
+        if notifierValue != 0 {
+            if (seconds%(notifierValue*60) == 0) {
+                notifier(seconds: seconds)
+            }
         }
+        
         
     }
     

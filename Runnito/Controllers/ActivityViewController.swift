@@ -64,7 +64,7 @@ class ActivityViewController: UIViewController {
         if segue.identifier == "toNewActivityVCSegue" {
             let startVC = segue.destination as! NewActivityViewController
             startVC.pickedActivity = pickedActivity
-            startVC.notfifierValue = notifierValue
+            startVC.notifierValue = notifierValue
             
         }
         
