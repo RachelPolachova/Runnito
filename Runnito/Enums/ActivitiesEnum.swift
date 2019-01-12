@@ -20,7 +20,6 @@ enum ActivitiesEnum: Int, CaseIterable {
         case .running: return "Running"
         case .cycling: return "Cycling"
         case .hiking: return "Hiking"
-        default: return ""
         }
     }
     

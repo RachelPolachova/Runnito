@@ -35,7 +35,7 @@ class NewActivityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("notifier: \(notifierValue), picked activity: \(pickedActivity?.description)")
+        print("notifier: \(notifierValue), picked activity: \(String(describing: pickedActivity?.description))")
         
         setUI()
         

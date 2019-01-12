@@ -37,7 +37,7 @@ class ArchiveTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedTypeOfActivity = ActivitiesEnum(rawValue: indexPath.row)
-        performSegue(withIdentifier: "goToCurrentActivitySegue", sender: nil)
+        performSegue(withIdentifier: "goToCurrentTypeSegue", sender: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

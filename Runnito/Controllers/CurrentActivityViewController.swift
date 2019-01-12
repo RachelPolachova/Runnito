@@ -19,11 +19,36 @@ class CurrentActivityViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     
     var selectedActivity: Run?
+    var locations: [CLLocation] = []
     
 //    let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        mapView.delegate = self
+        
+        setUI()
+        
+        if selectedActivity != nil {
+            drawRoute(locations: getArrayOfLocations(), noLocationsLabel: noLocationsLabel, mapView: mapView)
+        }
+
+        // Do any additional setup after loading the view.
+    }
+    
+    func getArrayOfLocations() -> [CLLocation] {
+        if let activity = selectedActivity {
+            for location in activity.locations {
+                locations.append(CLLocation(latitude: location.latitude, longitude: location.longitude))
+            }
+        }
+        return locations
+    }
+    
+    func setUI() {
+        
+        noLocationsLabel.isHidden = true
         
         if let activity = selectedActivity {
             let formaterr = DateFormatter()
@@ -34,9 +59,19 @@ class CurrentActivityViewController: UIViewController {
             dateLabel.text = formaterr.string(from: activity.timeStamp)
             
         }
-
-        // Do any additional setup after loading the view.
+        
     }
     
 
+}
+
+extension CurrentActivityViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = UIColor(hexString: "F25652")
+        renderer.lineWidth = 4.0
+        return renderer
+    }
+    
 }

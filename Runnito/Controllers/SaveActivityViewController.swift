@@ -37,7 +37,8 @@ class SaveActivityViewController: UIViewController, MKMapViewDelegate {
         
         mapView.delegate = self
         setUI()
-        drawRoute()
+        
+        drawRoute(locations: locationsList, noLocationsLabel: noLocationsLabel, mapView: mapView)
         
 //        print(Realm.Configuration.defaultConfiguration.fileURL!)
         
@@ -61,59 +62,11 @@ class SaveActivityViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: Map methods
     
-    func drawRoute() {
-        
-        let locations = locationsList
-        
-        if locations.count < 2 {
-            noLocationsLabel.isHidden = false
-        } else {
-            
-            for i in 0 ..< locations.count-1 {
-                
-                
-                
-                let sourceLocation = CLLocationCoordinate2D(latitude: locations[i].coordinate.latitude, longitude: locations[i].coordinate.longitude)
-                let destinationLocation = CLLocationCoordinate2D(latitude: locations[i+1].coordinate.latitude, longitude: locations[i+1].coordinate.longitude)
-                
-                
-                let sourcePlacemark = MKPlacemark(coordinate: sourceLocation)
-                let destinationPlacemark = MKPlacemark(coordinate: destinationLocation)
-                
-                let directionRequest = MKDirections.Request()
-                
-                directionRequest.source = MKMapItem(placemark: sourcePlacemark)
-                directionRequest.destination = MKMapItem(placemark: destinationPlacemark)
-                directionRequest.transportType = .automobile
-                
-                let directions = MKDirections(request: directionRequest)
-                
-                directions.calculate { (response, error) in
-                    guard let directionResponse = response else {
-                        if let err = error {
-                            print("error getting directions: \(err.localizedDescription)")
-                        }
-                        return
-                    }
-                    
-                    print("printing : \(i). location: long \(locations[i].coordinate.longitude) lat \(locations[i].coordinate.latitude)")
-                    
-                    let route = directionResponse.routes[0]
-                    self.mapView.addOverlay(route.polyline, level: .aboveRoads)
-                    
-                    let rect = route.polyline.boundingMapRect
-                    self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
-                    
-                }
-            }
-        }
-            
-        
-    }
+    
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
-        renderer.strokeColor = UIColor.blue
+        renderer.strokeColor = UIColor(hexString: "F25652")
         renderer.lineWidth = 4.0
         return renderer
     }
@@ -169,6 +122,60 @@ class SaveActivityViewController: UIViewController, MKMapViewDelegate {
     
 }
 
+extension UIViewController {
+    
+    func drawRoute(locations: [CLLocation], noLocationsLabel: UILabel, mapView: MKMapView) {
+        
+//        let locations = locationsList
+        
+        if locations.count < 2 {
+            noLocationsLabel.isHidden = false
+        } else {
+            
+            for i in 0 ..< locations.count-1 {
+                
+                
+                
+                let sourceLocation = CLLocationCoordinate2D(latitude: locations[i].coordinate.latitude, longitude: locations[i].coordinate.longitude)
+                let destinationLocation = CLLocationCoordinate2D(latitude: locations[i+1].coordinate.latitude, longitude: locations[i+1].coordinate.longitude)
+                
+                
+                let sourcePlacemark = MKPlacemark(coordinate: sourceLocation)
+                let destinationPlacemark = MKPlacemark(coordinate: destinationLocation)
+                
+                let directionRequest = MKDirections.Request()
+                
+                directionRequest.source = MKMapItem(placemark: sourcePlacemark)
+                directionRequest.destination = MKMapItem(placemark: destinationPlacemark)
+                directionRequest.transportType = .automobile
+                
+                let directions = MKDirections(request: directionRequest)
+                
+                directions.calculate { (response, error) in
+                    guard let directionResponse = response else {
+                        if let err = error {
+                            print("error getting directions: \(err.localizedDescription)")
+                        }
+                        return
+                    }
+                    
+                    print("printing : \(i). location: long \(locations[i].coordinate.longitude) lat \(locations[i].coordinate.latitude)")
+                    
+                    let route = directionResponse.routes[0]
+                    mapView.addOverlay(route.polyline, level: .aboveRoads)
+                    
+                    let rect = route.polyline.boundingMapRect
+                    mapView.setRegion(MKCoordinateRegion(rect), animated: true)
+                    
+                }
+            }
+        }
+        
+        
+    }
+    
+}
+
 extension UIColor {
     convenience init(hexString: String) {
         let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
@@ -188,3 +195,5 @@ extension UIColor {
         self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
     }
 }
+
+

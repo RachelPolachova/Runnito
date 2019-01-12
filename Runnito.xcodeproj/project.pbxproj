@@ -23,8 +23,6 @@
 		CCA3ABAE21E11A3B008BCA02 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3ABAD21E11A3B008BCA02 /* Location.swift */; };
 		CCA3ABB221E3C2FE008BCA02 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3ABB121E3C2FE008BCA02 /* ActivityViewController.swift */; };
 		CCC43C4C21EA063C00692236 /* SelectedTypeActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC43C4A21EA063C00692236 /* SelectedTypeActivityTableViewCell.swift */; };
-		CCC43C5021EA1FE600692236 /* Timer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCC43C4F21EA1FE600692236 /* Timer.storyboard */; };
-		CCC43C5221EA200E00692236 /* Archive.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCC43C5121EA200E00692236 /* Archive.storyboard */; };
 		CCC43C5421EA232000692236 /* CurrentActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC43C5321EA232000692236 /* CurrentActivityViewController.swift */; };
 		CCD8947621E63CFD004A1425 /* PopupActivityViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCD8947521E63CFD004A1425 /* PopupActivityViewController.storyboard */; };
 		CCDE778921E53494001726ED /* PopupActivityPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDE778821E53494001726ED /* PopupActivityPopupViewController.swift */; };
@@ -51,8 +49,6 @@
 		CCA3ABAD21E11A3B008BCA02 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		CCA3ABB121E3C2FE008BCA02 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		CCC43C4A21EA063C00692236 /* SelectedTypeActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedTypeActivityTableViewCell.swift; sourceTree = "<group>"; };
-		CCC43C4F21EA1FE600692236 /* Timer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Timer.storyboard; sourceTree = "<group>"; };
-		CCC43C5121EA200E00692236 /* Archive.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Archive.storyboard; sourceTree = "<group>"; };
 		CCC43C5321EA232000692236 /* CurrentActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentActivityViewController.swift; sourceTree = "<group>"; };
 		CCD8947521E63CFD004A1425 /* PopupActivityViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PopupActivityViewController.storyboard; sourceTree = "<group>"; };
 		CCDE778821E53494001726ED /* PopupActivityPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupActivityPopupViewController.swift; sourceTree = "<group>"; };
@@ -163,8 +159,6 @@
 		CCFE859521E119CA00F693F1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				CCC43C5121EA200E00692236 /* Archive.storyboard */,
-				CCC43C4F21EA1FE600692236 /* Timer.storyboard */,
 				CCD8947521E63CFD004A1425 /* PopupActivityViewController.storyboard */,
 				CC69711021DFE5BD00435022 /* Main.storyboard */,
 				CC69711521DFE5BF00435022 /* LaunchScreen.storyboard */,
@@ -246,10 +240,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCC43C5021EA1FE600692236 /* Timer.storyboard in Resources */,
 				CCD8947621E63CFD004A1425 /* PopupActivityViewController.storyboard in Resources */,
 				CC69711721DFE5BF00435022 /* LaunchScreen.storyboard in Resources */,
-				CCC43C5221EA200E00692236 /* Archive.storyboard in Resources */,
 				CC69711421DFE5BF00435022 /* Assets.xcassets in Resources */,
 				CC69711221DFE5BD00435022 /* Main.storyboard in Resources */,
 			);

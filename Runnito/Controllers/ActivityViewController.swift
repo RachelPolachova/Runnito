@@ -42,7 +42,7 @@ class ActivityViewController: UIViewController {
     
     @IBAction func startButtonPressed(_ sender: Any) {
         
-        print("start button pressed: notifier: \(notifierValue), picked activity: \(pickedActivity?.description)")
+        print("start button pressed: notifier: \(notifierValue), picked activity: \(String(describing: pickedActivity?.description))")
         
         performSegue(withIdentifier: "toNewActivityVCSegue", sender: nil)
         
