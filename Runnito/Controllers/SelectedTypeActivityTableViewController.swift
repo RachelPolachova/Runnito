@@ -22,14 +22,9 @@ class SelectedTypeActivityTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+    
         allActivities = realm.objects(Run.self)
-      
-        
         loadData()
-        print("count after load: \(selectedActivitiesList.count)")
-
         
     }
 
@@ -71,6 +66,18 @@ class SelectedTypeActivityTableViewController: UITableViewController {
         performSegue(withIdentifier: "goToCurrentActivity", sender: nil)
     }
     
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            removeData(removingObject: selectedActivitiesList[indexPath.row])
+            selectedActivitiesList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
     
     // MARK: Realm methods
     
@@ -80,12 +87,20 @@ class SelectedTypeActivityTableViewController: UITableViewController {
         if let list = allActivities {
             for activity in list {
                 if activity.activityType == selectedTypeOfActivity?.description {
-                    print("if in for true for type: \(activity.activityType)")
-                    
                     selectedActivitiesList.append(activity)
-                    
                 }
             }
+        }
+    }
+    
+    func removeData(removingObject: Run) {
+        
+        do {
+            try realm.write {
+                realm.delete(removingObject)
+            }
+        } catch {
+            print("Error during deleting object in Realm \(error.localizedDescription)")
         }
         
     }

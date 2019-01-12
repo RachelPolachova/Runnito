@@ -28,6 +28,13 @@ class PopupActivityPopupViewController: UIViewController {
         
         setupUI()
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     
@@ -36,7 +43,6 @@ class PopupActivityPopupViewController: UIViewController {
         if (activity) {
             
             delegate?.popupValueSelected(value: pickedActivity)
-//            delegate?.popupValueSelected(value: pickedActivity, isActivity: true)
             dismiss(animated: true, completion: nil)
             
         } else {
@@ -46,13 +52,11 @@ class PopupActivityPopupViewController: UIViewController {
                 if let value = Int(minutes) {
                     
                     delegate?.popupValueSelected(value: value)
-//                    delegate?.popupValueSelected(value: minutes, isActivity: false)
                     dismiss(animated: true, completion: nil)
                     
                 } else if minutes == "" {
                     
                     delegate?.popupValueSelected(value: 0)
-//                    delegate?.popupValueSelected(value: "0", isActivity: false)
                     dismiss(animated: true, completion: nil)
                     
                 } else {

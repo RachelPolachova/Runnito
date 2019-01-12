@@ -52,8 +52,8 @@ class SaveActivityViewController: UIViewController, MKMapViewDelegate {
         formaterr.dateFormat = "dd.MM.yyyy"
         
         timeLabel.text = secondsToHoursAndMinutes(seconds: duration)
-        dateLabel.text = "\(formaterr.string(from: date))"
-        distanceLabel.text = "\(distance)"
+        dateLabel.text = formaterr.string(from: date)
+        distanceLabel.text = String(distance) + " meters"
         
          noLocationsLabel.isHidden = true
     }
@@ -126,8 +126,6 @@ extension UIViewController {
     
     func drawRoute(locations: [CLLocation], noLocationsLabel: UILabel, mapView: MKMapView) {
         
-//        let locations = locationsList
-        
         if locations.count < 2 {
             noLocationsLabel.isHidden = false
         } else {
@@ -158,8 +156,6 @@ extension UIViewController {
                         }
                         return
                     }
-                    
-                    print("printing : \(i). location: long \(locations[i].coordinate.longitude) lat \(locations[i].coordinate.latitude)")
                     
                     let route = directionResponse.routes[0]
                     mapView.addOverlay(route.polyline, level: .aboveRoads)

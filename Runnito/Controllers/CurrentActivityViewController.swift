@@ -21,7 +21,6 @@ class CurrentActivityViewController: UIViewController {
     var selectedActivity: Run?
     var locations: [CLLocation] = []
     
-//    let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +33,6 @@ class CurrentActivityViewController: UIViewController {
             drawRoute(locations: getArrayOfLocations(), noLocationsLabel: noLocationsLabel, mapView: mapView)
         }
 
-        // Do any additional setup after loading the view.
     }
     
     func getArrayOfLocations() -> [CLLocation] {
@@ -55,7 +53,7 @@ class CurrentActivityViewController: UIViewController {
             formaterr.dateFormat = "dd MMM yyyy"
             
             timeLabel.text = secondsToHoursAndMinutes(seconds: activity.duration)
-            distanceLabel.text = String(activity.distance)
+            distanceLabel.text = String(activity.distance) + " meters"
             dateLabel.text = formaterr.string(from: activity.timeStamp)
             
         }

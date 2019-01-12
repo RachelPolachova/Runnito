@@ -22,7 +22,6 @@ class ActivityViewController: UIViewController {
         
         setUI()
 
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func chooseActivityButtonPressed(_ sender: Any) {
@@ -41,8 +40,6 @@ class ActivityViewController: UIViewController {
     }
     
     @IBAction func startButtonPressed(_ sender: Any) {
-        
-        print("start button pressed: notifier: \(notifierValue), picked activity: \(String(describing: pickedActivity?.description))")
         
         performSegue(withIdentifier: "toNewActivityVCSegue", sender: nil)
         
@@ -102,13 +99,5 @@ extension ActivityViewController: PopupDelegate {
         )
     }
     
-//    func popupValueSelected(value: String, isActivity: Bool) {
-//        if (isActivity) {
-//            choosedActivity = value
-//            chooseActivityButton.setTitle(value, for: .normal)
-//        } else {
-//            notifierValue = Int(value)!
-//            notifierButton.setTitle(value, for: .normal)
-//        }
-    }
+}
 

@@ -35,12 +35,16 @@ class NewActivityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("notifier: \(notifierValue), picked activity: \(String(describing: pickedActivity?.description))")
+        print("Notifier value: \(notifierValue)")
+        
+        // authorization on the beginning 
+        let utterance = AVSpeechUtterance(string: " ")
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        let synth = AVSpeechSynthesizer()
+        synth.speak(utterance)
         
         setUI()
-        
         setupLocationManager()
-        
         start()
         
         NotificationCenter.default.addObserver(self, selector: #selector(pauseWhenBackground(noti:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
@@ -53,6 +57,7 @@ class NewActivityViewController: UIViewController {
     override func didMove(toParent parent: UIViewController?) {
         super.didMove(toParent: parent)
         if parent == nil {
+            
             
             timer.invalidate()
             seconds = 0
@@ -77,10 +82,8 @@ class NewActivityViewController: UIViewController {
     
     @objc func willEnterForeground(noti: Notification) {
         if let savedDate = UserDefaults.standard.object(forKey: "savedTime") as? Date {
-            print("Seconds before difference: \(seconds)")
             let diffS = getTimeDifference(startDate: savedDate)
             seconds += diffS
-            print("Seconds after difference: \(seconds)")
             timeLabel.text = secondsToHoursAndMinutes(seconds: seconds)
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
             timerIsOn = true
@@ -91,7 +94,6 @@ class NewActivityViewController: UIViewController {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
         
         locationManager.startUpdatingLocation()
-        print("Location updating started")
         
     }
     
@@ -118,6 +120,8 @@ class NewActivityViewController: UIViewController {
     
     @objc func updateTimer() {
         
+        print("update timer")
+        
         seconds += 1;
         timeLabel.text = secondsToHoursAndMinutes(seconds: seconds)
         distanceLabel.text = "\(distance)"
@@ -126,6 +130,7 @@ class NewActivityViewController: UIViewController {
         
         if notifierValue != 0 {
             if (seconds%(notifierValue*60) == 0) {
+                print("notifier method called")
                 notifier(seconds: seconds)
             }
         }
