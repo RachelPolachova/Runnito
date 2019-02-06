@@ -22,7 +22,6 @@ class NewActivityViewController: UIViewController {
     var run: Run?
     var seconds = 0;
     var timer = Timer();
-    var timerIsOn = false;
     
     let locationManager = CLLocationManager()
     var locationsList: [CLLocation] = []
@@ -35,7 +34,6 @@ class NewActivityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("Notifier value: \(notifierValue)")
         
         // authorization on the beginning 
         let utterance = AVSpeechUtterance(string: " ")
@@ -54,49 +52,109 @@ class NewActivityViewController: UIViewController {
     }
     
     
-    override func didMove(toParent parent: UIViewController?) {
-        super.didMove(toParent: parent)
-        if parent == nil {
-            
-            
-            timer.invalidate()
-            seconds = 0
-            locationManager.stopUpdatingLocation()
-            
+    
+    
+    
+    // MARK: Timer methods
+    
+    func start() {
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        locationManager.startUpdatingLocation()
+    }
+    
+    @objc func updateTimer() {
+
+        seconds += 1;
+        timeLabel.text = secondsToHoursAndMinutes(seconds: seconds)
+        distanceLabel.text = "\(distance)"
+        distanceLabel.text = String(format: "%.0f", ceil(distance.value))
+        
+        
+        if notifierValue != 0 {
+            if (seconds%(notifierValue*60) == 0) {
+                notifier(seconds: seconds)
+            }
         }
     }
     
-    
-    // MARK: Timer
-    
-    @objc func pauseWhenBackground(noti: Notification) {
+    /// Speech synthesis voice reading time of activity
+    ///
+    /// - Parameter seconds: time of activity in seconds
+    func notifier(seconds: Int) {
         
+        var time = ""
+        if seconds >= 3600 {
+            let h = String(seconds/3600)
+            let m = String((seconds%3600)/60)
+            let s = seconds%60
+            time = "\(h) hours, \(m) minutes and \(s) seconds."
+        } else if seconds >= 60 && seconds < 3600 {
+            let m = seconds/60
+            let s = seconds%60
+            time = "\(m) minutes and \(s) seconds."
+        } else {
+            time = "\(seconds) seconds."
+        }
         
-        timer.invalidate()
-        timerIsOn = false
-        let shared = UserDefaults.standard
-        shared.set(Date(), forKey: "savedTime")
-        print(Date())
+        let string = "You are \(pickedActivity!.description) for " + time
+        let utterance = AVSpeechUtterance(string: string)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        let synth = AVSpeechSynthesizer()
+        synth.speak(utterance)
         
     }
     
+    /// If user goes back, timer will be invalidated and values resetted
+    ///
+    /// - Parameter parent: parent ViewController
+    override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
+        if parent == nil {
+            timer.invalidate()
+            seconds = 0
+            locationManager.stopUpdatingLocation()
+            print("did move called")
+        }
+    }
+    
+    /// Saves current time to UserDefaults when user goes to background
+    ///
+    /// - Parameter noti: Notification center in viewDidLoad with observer
+    @objc func pauseWhenBackground(noti: Notification) {
+        timer.invalidate()
+        let shared = UserDefaults.standard
+        shared.set(Date(), forKey: "savedTime")
+        print(Date())
+    }
+    
+    /// Updates timer to correct time after entering foreground again
+    ///
+    /// - Parameter noti: Notification center in viewDidLoad with observer
     @objc func willEnterForeground(noti: Notification) {
         if let savedDate = UserDefaults.standard.object(forKey: "savedTime") as? Date {
             let diffS = getTimeDifference(startDate: savedDate)
             seconds += diffS
             timeLabel.text = secondsToHoursAndMinutes(seconds: seconds)
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
-            timerIsOn = true
         }
     }
     
-    func start() {
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    /// Calculates difference between startDate and current time
+    ///
+    /// - Parameter startDate: since when
+    /// - Returns: difference in seconds
+    func getTimeDifference(startDate: Date) -> Int {
+        let calendar = Calendar.current
+        let unitFlags = Set<Calendar.Component>([.hour,.minute,.second])
+        print(Date())
+        let components = calendar.dateComponents(unitFlags, from: startDate, to: Date())
         
-        locationManager.startUpdatingLocation()
+        let s = components.hour!*3600 + components.minute!*60 + components.second!
         
+        return s
     }
     
+    //    MARK: Finishing activity methods
     
     @IBAction func doneButtonPressed(_ sender: Any) {
         
@@ -108,7 +166,7 @@ class NewActivityViewController: UIViewController {
             self.seconds = 0
             self.timeLabel.text = self.secondsToHoursAndMinutes(seconds: self.seconds)
             self.locationManager.stopUpdatingLocation()
-        
+            
         }
         
         let noAction = UIAlertAction(title: "No", style: .default)
@@ -116,66 +174,6 @@ class NewActivityViewController: UIViewController {
         alertController.addAction(yesAction)
         alertController.addAction(noAction)
         self.present(alertController,animated: true,completion: nil)
-    }
-    
-    @objc func updateTimer() {
-        
-        print("update timer")
-        
-        seconds += 1;
-        timeLabel.text = secondsToHoursAndMinutes(seconds: seconds)
-        distanceLabel.text = "\(distance)"
-        distanceLabel.text = String(format: "%.0f", ceil(distance.value))
-        
-        
-        if notifierValue != 0 {
-            if (seconds%(notifierValue*60) == 0) {
-                print("notifier method called")
-                notifier(seconds: seconds)
-            }
-        }
-        
-        
-    }
-    
-    func notifier(seconds: Int) {
-        
-        var time = ""
-        
-        if seconds >= 3600 {
-            let h = String(seconds/3600)
-            let m = String((seconds%3600)/60)
-            let s = seconds%60
-            
-            time = "\(h) hours, \(m) minutes and \(s) seconds."
-        } else if seconds >= 60 && seconds < 3600 {
-            let m = seconds/60
-            let s = seconds%60
-            
-            time = "\(m) minutes and \(s) seconds."
-        } else {
-            time = "\(seconds) seconds."
-        }
-        
-        let string = "You are \(pickedActivity!.description) for " + time
-        
-        let utterance = AVSpeechUtterance(string: string)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-
-        
-        let synth = AVSpeechSynthesizer()
-        synth.speak(utterance)
-    }
-    
-    func getTimeDifference(startDate: Date) -> Int {
-        let calendar = Calendar.current
-        let unitFlags = Set<Calendar.Component>([.hour,.minute,.second])
-        print(Date())
-        let components = calendar.dateComponents(unitFlags, from: startDate, to: Date())
-        
-        let s = components.hour!*3600 + components.minute!*60 + components.second!
-        
-        return s
     }
     
     // MARK: Segue
@@ -197,7 +195,7 @@ class NewActivityViewController: UIViewController {
     
 }
 
-// MARK : Location manager
+//  MARK: Location manager
 
 extension NewActivityViewController: CLLocationManagerDelegate {
     
@@ -226,16 +224,14 @@ extension NewActivityViewController: CLLocationManagerDelegate {
         }
         
     }
-    
 }
 
 
 
-//CONVERSION
-
+//  MARK: Conversion of time methods
 extension UIViewController {
+    
     func secondsToHoursAndMinutes(seconds: Int) -> String {
-        
         var h = "00"
         var m = "00"
         var s = "00"
@@ -245,7 +241,6 @@ extension UIViewController {
         s = isLoverThanTen(conversion: seconds%60)
         
         return "\(h):\(m):\(s)"
-        
     }
     
     func isLoverThanTen(conversion: Int) -> String {

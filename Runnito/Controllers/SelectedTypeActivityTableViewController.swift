@@ -13,13 +13,10 @@ class SelectedTypeActivityTableViewController: UITableViewController {
     
     var selectedTypeOfActivity: ActivitiesEnum?
     var selectedActivity: Run?
-    
     let realm = try! Realm()
     var allActivities: Results<Run>?
-
-    
     var selectedActivitiesList: [Run] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -27,18 +24,51 @@ class SelectedTypeActivityTableViewController: UITableViewController {
         loadData()
         
     }
+    
+//    MARK: Realm methods
+    
+    func loadData() {
+        if let list = allActivities {
+            for activity in list {
+                if activity.activityType == selectedTypeOfActivity?.description {
+                    selectedActivitiesList.append(activity)
+                }
+            }
+        }
+    }
+    
+    func removeData(removingObject: Run) {
+        do {
+            try realm.write {
+                realm.delete(removingObject)
+            }
+        } catch {
+            print("Error during deleting object in Realm \(error.localizedDescription)")
+        }
+    }
+    
+//    MARK: Segue methods
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! CurrentActivityViewController
+        destinationVC.selectedActivity = selectedActivity
+    }
+}
 
-    // MARK: - Table view data source
+//  MARK: - Table view methods
 
+extension SelectedTypeActivityTableViewController {
+    
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-
+        
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return selectedActivitiesList.count
-
+        
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -46,7 +76,7 @@ class SelectedTypeActivityTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "selectedTypeActivityTableViewCell", for: indexPath) as! SelectedTypeActivityTableViewCell
         
         let activity = selectedActivitiesList[indexPath.row]
@@ -77,40 +107,4 @@ class SelectedTypeActivityTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
-    
-    
-    // MARK: Realm methods
-    
-    func loadData() {
-        
-        
-        if let list = allActivities {
-            for activity in list {
-                if activity.activityType == selectedTypeOfActivity?.description {
-                    selectedActivitiesList.append(activity)
-                }
-            }
-        }
-    }
-    
-    func removeData(removingObject: Run) {
-        
-        do {
-            try realm.write {
-                realm.delete(removingObject)
-            }
-        } catch {
-            print("Error during deleting object in Realm \(error.localizedDescription)")
-        }
-        
-    }
-    
-    // MARK: Segue methods
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! CurrentActivityViewController
-        destinationVC.selectedActivity = selectedActivity
-    }
-
-
 }

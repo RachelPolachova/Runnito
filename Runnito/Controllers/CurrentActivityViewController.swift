@@ -53,14 +53,10 @@ class CurrentActivityViewController: UIViewController {
             formaterr.dateFormat = "dd MMM yyyy"
             
             timeLabel.text = secondsToHoursAndMinutes(seconds: activity.duration)
-            distanceLabel.text = String(activity.distance) + " meters"
+            distanceLabel.text = String(format: "%.0f", ceil(activity.distance)) + " meters"
             dateLabel.text = formaterr.string(from: activity.timeStamp)
-            
         }
-        
     }
-    
-
 }
 
 extension CurrentActivityViewController: MKMapViewDelegate {

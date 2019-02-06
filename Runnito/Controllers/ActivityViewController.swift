@@ -19,30 +19,11 @@ class ActivityViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setUI()
-
-    }
-    
-    @IBAction func chooseActivityButtonPressed(_ sender: Any) {
-        
-        
-        
-    }
-    @IBAction func notifierButtonPressed(_ sender: Any) {
-        
-        
-        
-    }
-    
-    func goToPopup(isItActivity: Bool) {
-        
     }
     
     @IBAction func startButtonPressed(_ sender: Any) {
-        
         performSegue(withIdentifier: "toNewActivityVCSegue", sender: nil)
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -62,10 +43,7 @@ class ActivityViewController: UIViewController {
             let startVC = segue.destination as! NewActivityViewController
             startVC.pickedActivity = pickedActivity
             startVC.notifierValue = notifierValue
-            
         }
-        
-        
     }
     
     func setUI() {
@@ -80,13 +58,10 @@ class ActivityViewController: UIViewController {
         startButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         startButton.layer.shadowOffset = CGSize(width: 0, height: 2)
         startButton.layer.shadowOpacity = 1
-
     }
-    
 }
 
 extension ActivityViewController: PopupDelegate {
-    
     
     func popupValueSelected(value: Int) {
         notifierValue = value

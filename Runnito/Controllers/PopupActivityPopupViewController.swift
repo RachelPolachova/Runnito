@@ -67,7 +67,6 @@ class PopupActivityPopupViewController: UIViewController {
                         present(alert,animated: true)
                     
                 }
-                
                 }
             }
         }

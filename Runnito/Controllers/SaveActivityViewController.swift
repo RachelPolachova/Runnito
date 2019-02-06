@@ -53,16 +53,15 @@ class SaveActivityViewController: UIViewController, MKMapViewDelegate {
         
         timeLabel.text = secondsToHoursAndMinutes(seconds: duration)
         dateLabel.text = formaterr.string(from: date)
-        distanceLabel.text = String(distance) + " meters"
+        let dist = String(format: "%.0f", ceil(distance))
+        distanceLabel.text = "\(dist) meters"
         
-         noLocationsLabel.isHidden = true
+        noLocationsLabel.isHidden = true
     }
     
     
     
     // MARK: Map methods
-    
-    
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
@@ -131,8 +130,6 @@ extension UIViewController {
         } else {
             
             for i in 0 ..< locations.count-1 {
-                
-                
                 
                 let sourceLocation = CLLocationCoordinate2D(latitude: locations[i].coordinate.latitude, longitude: locations[i].coordinate.longitude)
                 let destinationLocation = CLLocationCoordinate2D(latitude: locations[i+1].coordinate.latitude, longitude: locations[i+1].coordinate.longitude)

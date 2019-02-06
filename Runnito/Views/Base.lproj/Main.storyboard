@@ -12,7 +12,6 @@
         <!--Activity View Controller-->
         <scene sceneID="v7T-2d-x1Z">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gSS-oc-Ume" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="nuN-bA-ftP" customClass="ActivityViewController" customModule="Runnito" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Dqr-s7-oDy">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -40,7 +39,6 @@
                                     <color key="titleColor" red="0.94901960780000005" green="0.33725490200000002" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="chooseActivityButtonPressed:" destination="nuN-bA-ftP" eventType="touchUpInside" id="Zea-tC-smq"/>
                                     <segue destination="PZJ-R9-FUR" kind="presentation" identifier="toChooseActivitySegue" id="Yna-in-CIz"/>
                                 </connections>
                             </button>
@@ -54,8 +52,6 @@
                                     <color key="titleColor" red="0.94901960780000005" green="0.33725490200000002" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="chooseActivityButtonPressed:" destination="nuN-bA-ftP" eventType="touchUpInside" id="Sgm-Lv-d0g"/>
-                                    <action selector="notifierButtonPressed:" destination="nuN-bA-ftP" eventType="touchUpInside" id="QdA-BE-SIh"/>
                                     <segue destination="PZJ-R9-FUR" kind="presentation" identifier="toNotifierSegue" id="fwX-U0-TdV"/>
                                 </connections>
                             </button>
@@ -102,21 +98,21 @@
                         <segue destination="9i8-RQ-PZ3" kind="show" identifier="toNewActivityVCSegue" id="bpM-XZ-WYy"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gSS-oc-Ume" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1464.8" y="-735.38230884557731"/>
         </scene>
         <!--PopupActivityViewController-->
         <scene sceneID="v06-Df-Bq4">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mjy-8T-l5M" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewControllerPlaceholder storyboardName="PopupActivityViewController" id="PZJ-R9-FUR" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mjy-8T-l5M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2115" y="-1193"/>
         </scene>
         <!--New Activity View Controller-->
         <scene sceneID="q0Z-FH-yfI">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KGA-w0-aLP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="9i8-RQ-PZ3" customClass="NewActivityViewController" customModule="Runnito" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6qx-k8-Oay">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -208,13 +204,13 @@
                         <segue destination="ebj-bI-Yu4" kind="show" identifier="saveActivitySegue" id="QYz-Ae-M81"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KGA-w0-aLP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2494" y="-737"/>
         </scene>
         <!--Save activity-->
         <scene sceneID="KNm-nz-4a9">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1EL-4z-DCP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="ebj-bI-Yu4" customClass="SaveActivityViewController" customModule="Runnito" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cOB-Dj-LoQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -304,13 +300,13 @@
                         <outlet property="timeLabel" destination="ghl-wg-1a0" id="0kD-NQ-239"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1EL-4z-DCP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3252" y="-736"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="0Ln-of-avR">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XYT-bH-u6J" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController id="xr6-iE-K96" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iOG-QY-k9W">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
@@ -329,13 +325,13 @@
                         <segue destination="fLf-s6-4dv" kind="relationship" relationship="viewControllers" id="ogT-Rp-pFy"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XYT-bH-u6J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-339" y="-405"/>
         </scene>
         <!--Timer-->
         <scene sceneID="HMg-2F-zpW">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Z3l-yp-FYp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="activityVC" automaticallyAdjustsScrollViewInsets="NO" id="i5U-Gp-p1h" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Timer" image="timer" id="Yv5-ZB-5Wk"/>
                     <toolbarItems/>
@@ -357,13 +353,13 @@
                         <segue destination="nuN-bA-ftP" kind="relationship" relationship="rootViewController" id="yOg-uo-ap4"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z3l-yp-FYp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="612" y="-736.28185907046486"/>
         </scene>
         <!--Archive-->
         <scene sceneID="Zc1-su-TFn">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2jm-ci-ua3" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fLf-s6-4dv" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Archive" image="archive" id="GuJ-2H-8nU"/>
                     <toolbarItems/>
@@ -381,13 +377,13 @@
                         <segue destination="qz3-b7-E9F" kind="relationship" relationship="rootViewController" id="pfx-3M-TIs"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2jm-ci-ua3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="611.59420289855075" y="-72.321428571428569"/>
         </scene>
         <!--Archive Table View Controller-->
         <scene sceneID="3f7-oO-Bxp">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4ED-mm-I2c" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="qz3-b7-E9F" customClass="ArchiveTableViewController" customModule="Runnito" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="JSg-zJ-q6i">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -413,13 +409,13 @@
                         <segue destination="PE7-FW-Qur" kind="show" identifier="goToCurrentTypeSegue" id="51b-hO-Dre"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4ED-mm-I2c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1464" y="-72"/>
         </scene>
         <!--Selected Type Activity Table View Controller-->
         <scene sceneID="wm5-Rq-6qj">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Y1t-3C-vwG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="PE7-FW-Qur" customClass="SelectedTypeActivityTableViewController" customModule="Runnito" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="iCT-RN-psJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -483,6 +479,7 @@
                         <segue destination="twP-so-Ueh" kind="show" identifier="goToCurrentActivity" id="1sI-RW-wjf"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y1t-3C-vwG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2492.753623188406" y="-72.321428571428569"/>
         </scene>
