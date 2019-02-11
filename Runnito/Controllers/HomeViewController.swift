@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ActivityViewController: UIViewController {
+class HomeViewController: UIViewController {
 
     @IBOutlet weak var chooseActivityButton: UIButton!
     @IBOutlet weak var notifierButton: UIButton!
@@ -61,7 +61,7 @@ class ActivityViewController: UIViewController {
     }
 }
 
-extension ActivityViewController: PopupDelegate {
+extension HomeViewController: PopupDelegate {
     
     func popupValueSelected(value: Int) {
         notifierValue = value

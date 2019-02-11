@@ -13,6 +13,4 @@ class SelectedTypeActivityTableViewCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    
-    
 }

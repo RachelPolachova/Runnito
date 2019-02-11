@@ -77,6 +77,7 @@ class SaveActivityViewController: UIViewController, MKMapViewDelegate {
         
         do {
             try realm.write {
+                print("Printing location")
                 let newRun = Run()
                 newRun.distance = distance
                 newRun.duration = duration
@@ -128,42 +129,41 @@ extension UIViewController {
         if locations.count < 2 {
             noLocationsLabel.isHidden = false
         } else {
-            
+
             for i in 0 ..< locations.count-1 {
-                
+
                 let sourceLocation = CLLocationCoordinate2D(latitude: locations[i].coordinate.latitude, longitude: locations[i].coordinate.longitude)
                 let destinationLocation = CLLocationCoordinate2D(latitude: locations[i+1].coordinate.latitude, longitude: locations[i+1].coordinate.longitude)
-                
-                
+
+
                 let sourcePlacemark = MKPlacemark(coordinate: sourceLocation)
                 let destinationPlacemark = MKPlacemark(coordinate: destinationLocation)
-                
+
                 let directionRequest = MKDirections.Request()
-                
+
                 directionRequest.source = MKMapItem(placemark: sourcePlacemark)
                 directionRequest.destination = MKMapItem(placemark: destinationPlacemark)
-                directionRequest.transportType = .automobile
-                
+                directionRequest.transportType = .walking
+
                 let directions = MKDirections(request: directionRequest)
-                
+
                 directions.calculate { (response, error) in
                     guard let directionResponse = response else {
                         if let err = error {
-                            print("error getting directions: \(err.localizedDescription)")
+                            print("error getting directions in draw route: \(err.localizedDescription)")
                         }
                         return
                     }
-                    
+
                     let route = directionResponse.routes[0]
                     mapView.addOverlay(route.polyline, level: .aboveRoads)
-                    
-                    let rect = route.polyline.boundingMapRect
-                    mapView.setRegion(MKCoordinateRegion(rect), animated: true)
-                    
+
+                    let center = CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude)
+                    mapView.region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
+
                 }
             }
         }
-        
         
     }
     
