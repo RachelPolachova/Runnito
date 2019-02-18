@@ -97,13 +97,14 @@ class RegisterViewController: UIViewController {
         activityView = UIActivityIndicatorView(style: .gray)
         activityView.color = .red
         activityView.frame = CGRect(x: 0, y: 0, width: 50.0, height: 50.0)
-        activityView.center = registerButton.center
         view.addSubview(activityView)
         
         
         setLayout()
         
     }
+    
+    //    MARK: - UI methods
     
     
     @objc func textFieldChanged() {
@@ -158,26 +159,24 @@ class RegisterViewController: UIViewController {
         }
     }
     
+    //    MARK: - Firebase methods
+    
     @objc func handleRegistration() {
+        
+        print("😱 login pressed")
+        
         guard let username = usernameTextField.text else { return }
         guard let email = mailTextField.text else { return }
         guard let pass = passwordTextField.text else { return }
         guard let image = profilePictureImageView.image else { return }
         
-//        setContinueButton(enabled: false)
-//        continueButton.setTitle("", for: .normal)
+        setRegisterButton(enabled: false)
         activityView.startAnimating()
         
         Auth.auth().createUser(withEmail: email, password: pass) { user, error in
             if error == nil && user != nil {
-                print("🌈 User created!")
-                
-                
-                
-                // 1. Upload the profile image to Firebase Storage
                 
                 self.uploadProfileImage(image) { url in
-                    print("🌈 In uploadProfileImage closure")
                     
                     if url != nil {
                         let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
@@ -186,70 +185,77 @@ class RegisterViewController: UIViewController {
                         
                         changeRequest?.commitChanges { error in
                             if error == nil {
-                                print("User display name changed!")
                                 
                                 self.saveProfile(username: username, profileImageURL: url!) { success in
                                     if success {
-                                        print("🐰 dismiss called")
-                                        self.dismiss(animated: true, completion: nil)
+                                        print("🌈 success")
+                                        self.navigationController?.popViewController(animated: true)
                                     }
                                 }
                                 
                             } else {
+                                self.activityView.stopAnimating()
+                                self.setRegisterButton(enabled: true)
+                                self.errorAlert(title: "unable to commit changes.")
                                 print("Error: \(error!.localizedDescription)")
                             }
                         }
                     } else {
-                        // Error unable to upload profile image
+                        self.activityView.stopAnimating()
+                        self.setRegisterButton(enabled: true)
+                        self.errorAlert(title: "unable to upload profile image")
                     }
-                    
                 }
                 
             } else {
-                print("Error: \(error!.localizedDescription)")
+                self.activityView.stopAnimating()
+                self.setRegisterButton(enabled: true)
+                if let err = error {
+                    self.errorAlert(title: "\(err.localizedDescription)")
+                } else {
+                    self.errorAlert(title: "please try again.")
+                }
+                
+            }
+        }
+    }
+    
+    func errorAlert(title: String) {
+        let alert = UIAlertController(title: "Error", message: "We are sorry, \(title)", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(action)
+        present(alert,animated: true, completion: nil)
+    }
+    
+    
+    func uploadProfileImage(_ image:UIImage, completion: @escaping ((_ url:URL?)->())) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let storageRef = Storage.storage().reference().child("user/\(uid)")
+        
+        guard let imageData = image.jpegData(compressionQuality: 0.75) else {
+            print("🔥 jpeg compress")
+            return
+        }
+        
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpg"
+        
+        storageRef.putData(imageData, metadata: metaData) { metaData, error in
+            if error == nil, metaData != nil {
+                if let url = metaData?.downloadURL() {
+                    completion(url)
+                } else {
+                    completion(nil)
+                }
+            } else {
+                completion(nil)
             }
         }
     }
     
     
-    func uploadProfileImage(_ image:UIImage, completion: @escaping ((_ url:URL?)->())) {
-        print("🌈 uploadProfileImage called")
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        let storageRef = Storage.storage().reference().child("user/\(uid)")
-        
-        guard let imageData = image.jpegData(compressionQuality: 0.75) else { return }
-        
-        let metaData = StorageMetadata()
-        metaData.contentType = "image/jpg"
-        
-        
-        storageRef.putData(imageData, metadata: metaData) { metaData, error in
-            if error == nil, metaData != nil {
-                storageRef.downloadURL(completion: { (url, error) in
-                    if let error = error {
-                        print("🔥 url error")
-                    } else {
-                        completion(url?.absoluteURL)
-                    }
-                })
-//                if let url = metaData?.downloadURL() {
-//                    completion(url)
-//                } else {
-//                    completion(nil)
-//                }
-//                // success!
-//            } else {
-//                // failed
-//                completion(nil)
-//            }
-        }
-    }
-    }
     
-    
-    
-    func saveProfile(username: String, profileImageURL: URL, completion: @escaping (_ success:Bool)->()) {
-        
+    func saveProfile(username:String, profileImageURL:URL, completion: @escaping ((_ success:Bool)->())) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let databaseRef = Database.database().reference().child("users/profile/\(uid)")
         
@@ -261,11 +267,12 @@ class RegisterViewController: UIViewController {
         databaseRef.setValue(userObject) { error, ref in
             completion(error == nil)
         }
-        
     }
     
 
 }
+
+    // MARK: - imagePicker methods
 
 extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -274,10 +281,7 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        print("didFinishPicking")
-        
         if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            print("Did finish picking not nil")
             profilePictureImageView.image = image
         }
         
@@ -286,18 +290,4 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
     
     
     
-}
-
-extension UIImageView {
-    public func maskCircle(anyImage: UIImage) {
-        self.contentMode = UIView.ContentMode.scaleAspectFill
-        self.layer.cornerRadius = self.frame.height / 2
-        self.layer.masksToBounds = false
-        self.clipsToBounds = true
-        
-        // make square(* must to make circle),
-        // resize(reduce the kilobyte) and
-        // fix rotation.
-        self.image = anyImage
-    }
 }

@@ -17,7 +17,6 @@
 		CC69711721DFE5BF00435022 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC69711521DFE5BF00435022 /* LaunchScreen.storyboard */; };
 		CC69711F21DFE7CA00435022 /* NewActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC69711E21DFE7CA00435022 /* NewActivityViewController.swift */; };
 		CC69712121DFF88C00435022 /* SaveActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC69712021DFF88C00435022 /* SaveActivityViewController.swift */; };
-		CC90F964221198CD0080B6F8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CC90F963221198CD0080B6F8 /* GoogleService-Info.plist */; };
 		CC90F9662211C8020080B6F8 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90F9652211C8020080B6F8 /* MenuViewController.swift */; };
 		CC90F9692211C85B0080B6F8 /* ChooseUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90F9682211C85B0080B6F8 /* ChooseUIButton.swift */; };
 		CC90F96B2211D4F10080B6F8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90F96A2211D4F10080B6F8 /* LoginViewController.swift */; };
@@ -33,6 +32,7 @@
 		CCC43C5421EA232000692236 /* CurrentActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC43C5321EA232000692236 /* CurrentActivityViewController.swift */; };
 		CCD8947621E63CFD004A1425 /* PopupActivityViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCD8947521E63CFD004A1425 /* PopupActivityViewController.storyboard */; };
 		CCDE778921E53494001726ED /* PopupActivityPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDE778821E53494001726ED /* PopupActivityPopupViewController.swift */; };
+		CCFC277D221AEB7B00D8FF5F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CCFC277C221AEB7A00D8FF5F /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,7 +50,6 @@
 		CC69711821DFE5BF00435022 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC69711E21DFE7CA00435022 /* NewActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewActivityViewController.swift; sourceTree = "<group>"; };
 		CC69712021DFF88C00435022 /* SaveActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveActivityViewController.swift; sourceTree = "<group>"; };
-		CC90F963221198CD0080B6F8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CC90F9652211C8020080B6F8 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		CC90F9682211C85B0080B6F8 /* ChooseUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseUIButton.swift; sourceTree = "<group>"; };
 		CC90F96A2211D4F10080B6F8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +65,7 @@
 		CCC43C5321EA232000692236 /* CurrentActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentActivityViewController.swift; sourceTree = "<group>"; };
 		CCD8947521E63CFD004A1425 /* PopupActivityViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PopupActivityViewController.storyboard; sourceTree = "<group>"; };
 		CCDE778821E53494001726ED /* PopupActivityPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupActivityPopupViewController.swift; sourceTree = "<group>"; };
+		CCFC277C221AEB7A00D8FF5F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +125,7 @@
 		CC69710B21DFE5BD00435022 /* Runnito */ = {
 			isa = PBXGroup;
 			children = (
+				CCFC277C221AEB7A00D8FF5F /* GoogleService-Info.plist */,
 				CC90F976221206DE0080B6F8 /* Assets.xcassets */,
 				CC90F9672211C83D0080B6F8 /* UI Elements */,
 				CC69710C21DFE5BD00435022 /* AppDelegate.swift */,
@@ -135,7 +136,6 @@
 				CC02472021E8DCDB00985763 /* Enums */,
 				CCFE859321E119A700F693F1 /* Data Model */,
 				CC69711821DFE5BF00435022 /* Info.plist */,
-				CC90F963221198CD0080B6F8 /* GoogleService-Info.plist */,
 			);
 			path = Runnito;
 			sourceTree = "<group>";
@@ -271,7 +271,7 @@
 			files = (
 				CCD8947621E63CFD004A1425 /* PopupActivityViewController.storyboard in Resources */,
 				CC69711721DFE5BF00435022 /* LaunchScreen.storyboard in Resources */,
-				CC90F964221198CD0080B6F8 /* GoogleService-Info.plist in Resources */,
+				CCFC277D221AEB7B00D8FF5F /* GoogleService-Info.plist in Resources */,
 				CC69711221DFE5BD00435022 /* Main.storyboard in Resources */,
 				CC90F977221206DE0080B6F8 /* Assets.xcassets in Resources */,
 			);
@@ -288,7 +288,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Runnito/Pods-Runnito-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -297,7 +297,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
