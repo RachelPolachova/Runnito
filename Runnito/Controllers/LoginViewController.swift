@@ -83,15 +83,13 @@ class LoginViewController: UIViewController {
         guard let password = passwordTextField.text else { return }
         
         setLoginButton(enabled: false)
-        loginButton.setTitle("", for: .normal)
         
         Auth.auth().signIn(withEmail: mail, password: password) { (user, error) in
             if let err = error {
-                print("Error log in: \(err.localizedDescription)")
+                self.errorAlert(message: err.localizedDescription)
             } else {
                 print("Logged in.")
                 self.navigationController?.popViewController(animated: true)
-                
             }
         }
         

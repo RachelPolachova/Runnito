@@ -1,5 +1,5 @@
 //
-//  RunViewController.swift
+//  NewViewController.swift
 //  Runnito
 //
 //  Created by Ráchel Polachová on 04/01/2019.
@@ -13,13 +13,10 @@ import AVFoundation
 class NewActivityViewController: UIViewController {
 
     @IBOutlet weak var timeLabel: UILabel!
-    
-    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var paceLabel: UILabel!
     
-    var run: Run?
     var seconds = 0;
     var timer = Timer();
     
@@ -45,15 +42,19 @@ class NewActivityViewController: UIViewController {
         setupLocationManager()
         start()
         
+        // observers if app goes to background / will enter foreground so time difference can be calculated
         NotificationCenter.default.addObserver(self, selector: #selector(pauseWhenBackground(noti:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
 
         NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground(noti:)), name: UIApplication.willEnterForegroundNotification, object: nil)
         
     }
     
+    // MARK: UI methods
     
-    
-    
+    func setUI() {
+        paceLabel.text = "0"
+        distanceLabel.text = "\(distance)"
+    }
     
     // MARK: Timer methods
     
@@ -77,9 +78,13 @@ class NewActivityViewController: UIViewController {
         }
     }
     
-    /// Speech synthesis voice reading time of activity
-    ///
-    /// - Parameter seconds: time of activity in seconds
+    
+/**
+     Speech synthesis voice reading time of activity
+     - Parameters:
+        - seconds: time of activity in secods
+     
+ */
     func notifier(seconds: Int) {
         
         var time = ""
@@ -104,9 +109,9 @@ class NewActivityViewController: UIViewController {
         
     }
     
-    /// If user goes back, timer will be invalidated and values resetted
-    ///
-    /// - Parameter parent: parent ViewController
+/**
+     If user goes back, timer will be invalidated and values resetted
+*/
     override func didMove(toParent parent: UIViewController?) {
         super.didMove(toParent: parent)
         if parent == nil {
@@ -117,9 +122,11 @@ class NewActivityViewController: UIViewController {
         }
     }
     
-    /// Saves current time to UserDefaults when user goes to background
-    ///
-    /// - Parameter noti: Notification center in viewDidLoad with observer
+/**
+     Saves current time to UserDefaults when user goes to background
+     - Parameters:
+        - noti: Notification center in viewDidLoad with observer
+ */
     @objc func pauseWhenBackground(noti: Notification) {
         timer.invalidate()
         let shared = UserDefaults.standard
@@ -127,9 +134,12 @@ class NewActivityViewController: UIViewController {
         print(Date())
     }
     
-    /// Updates timer to correct time after entering foreground again
-    ///
-    /// - Parameter noti: Notification center in viewDidLoad with observer
+    
+/**
+     Updates timer to correct time after entering foreground again
+     - Parameters:
+        - noti: Notification center in viewDidLoad with observer
+ */
     @objc func willEnterForeground(noti: Notification) {
         if let savedDate = UserDefaults.standard.object(forKey: "savedTime") as? Date {
             let diffS = getTimeDifference(startDate: savedDate)
@@ -139,10 +149,14 @@ class NewActivityViewController: UIViewController {
         }
     }
     
-    /// Calculates difference between startDate and current time
-    ///
-    /// - Parameter startDate: since when
-    /// - Returns: difference in seconds
+/**
+     Calculates difference between startDate and current time
+     
+    - Parameters:
+        - startDate: since when
+     - Returns:
+        difference in seconds
+*/
     func getTimeDifference(startDate: Date) -> Int {
         let calendar = Calendar.current
         let unitFlags = Set<Calendar.Component>([.hour,.minute,.second])
@@ -153,6 +167,7 @@ class NewActivityViewController: UIViewController {
         
         return s
     }
+    
     
     //    MARK: Finishing activity methods
     
@@ -170,27 +185,21 @@ class NewActivityViewController: UIViewController {
         }
         
         let noAction = UIAlertAction(title: "No", style: .default)
-        
         alertController.addAction(yesAction)
         alertController.addAction(noAction)
         self.present(alertController,animated: true,completion: nil)
     }
     
-    // MARK: Segue
+    // MARK: Segue methods
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let saveController = segue.destination as! SaveActivityViewController
-        saveController.duration = seconds
-        saveController.distance = distance.value
-        saveController.locationsList = locationsList
-        saveController.pickedActivity = pickedActivity
-    }
-    
-    // MARK: UI methods
-    
-    func setUI() {
-        paceLabel.text = "0"
-        distanceLabel.text = "\(distance)"
+        let activity = NewActivity(duration: seconds, distance: distance.value, locationsList: locationsList, pickedActivity: pickedActivity ?? ActivitiesEnum(rawValue: 0)!)
+        saveController.activity = activity
+//        saveController.duration = seconds
+//        saveController.distance = distance.value
+//        saveController.locationsList = locationsList
+//        saveController.pickedActivity = pickedActivity
     }
     
 }
@@ -198,7 +207,6 @@ class NewActivityViewController: UIViewController {
 //  MARK: Location manager
 
 extension NewActivityViewController: CLLocationManagerDelegate {
-    
     
     func setupLocationManager() {
         locationManager.delegate = self
@@ -226,27 +234,3 @@ extension NewActivityViewController: CLLocationManagerDelegate {
     }
 }
 
-
-
-//  MARK: Conversion of time methods
-extension UIViewController {
-    
-    func secondsToHoursAndMinutes(seconds: Int) -> String {
-        var h = "00"
-        var m = "00"
-        var s = "00"
-        
-        h = isLoverThanTen(conversion: seconds/3600)
-        m = isLoverThanTen(conversion: (seconds%3600)/60)
-        s = isLoverThanTen(conversion: seconds%60)
-        
-        return "\(h):\(m):\(s)"
-    }
-    
-    func isLoverThanTen(conversion: Int) -> String {
-        if conversion < 10 {
-            return "0\(conversion)"
-        }
-        return "\(conversion)"
-    }
-}

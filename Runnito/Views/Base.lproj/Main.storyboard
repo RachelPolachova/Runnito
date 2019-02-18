@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Home View Controller-->
+        <!--Start Activity View Controller-->
         <scene sceneID="v7T-2d-x1Z">
             <objects>
-                <viewController id="nuN-bA-ftP" customClass="HomeViewController" customModule="Runnito" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="nuN-bA-ftP" customClass="StartActivityViewController" customModule="Runnito" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Dqr-s7-oDy">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -299,7 +299,7 @@
         <!--Menu View Controller-->
         <scene sceneID="NkX-Df-KGj">
             <objects>
-                <viewController id="vFq-Ej-C9U" customClass="MenuViewController" customModule="Runnito" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="vFq-Ej-C9U" customClass="MenuViewController" customModule="Runnito" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AWP-M7-6VV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -310,7 +310,6 @@
                     <connections>
                         <segue destination="cKk-tz-RLj" kind="show" identifier="goToLoginSegue" id="1BZ-Nv-Yh1"/>
                         <segue destination="iiQ-Wb-u5N" kind="show" identifier="goToRegisterSegue" id="zxe-do-sTU"/>
-                        <segue destination="xr6-iE-K96" kind="presentation" identifier="toHomeSegue" id="Rdx-CB-oRR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fcn-uo-v81" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -350,7 +349,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="0Ln-of-avR">
             <objects>
-                <tabBarController id="xr6-iE-K96" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBarViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xr6-iE-K96" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iOG-QY-k9W">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -637,7 +636,7 @@
         <!--Navigation Controller-->
         <scene sceneID="tiE-qb-WQ8">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6fM-h8-0S7" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MenuViewController" automaticallyAdjustsScrollViewInsets="NO" id="6fM-h8-0S7" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fxp-Tg-AvS">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

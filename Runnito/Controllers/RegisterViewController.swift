@@ -189,44 +189,32 @@ class RegisterViewController: UIViewController {
                                 self.saveProfile(username: username, profileImageURL: url!) { success in
                                     if success {
                                         print("🌈 success")
-                                        self.navigationController?.popViewController(animated: true)
                                     }
                                 }
                                 
                             } else {
                                 self.activityView.stopAnimating()
-                                self.setRegisterButton(enabled: true)
-                                self.errorAlert(title: "unable to commit changes.")
+                                self.errorAlert(message: "unable to commit changes.")
                                 print("Error: \(error!.localizedDescription)")
                             }
                         }
                     } else {
                         self.activityView.stopAnimating()
-                        self.setRegisterButton(enabled: true)
-                        self.errorAlert(title: "unable to upload profile image")
+                        self.errorAlert(message: "unable to upload profile image")
                     }
                 }
                 
             } else {
                 self.activityView.stopAnimating()
-                self.setRegisterButton(enabled: true)
                 if let err = error {
-                    self.errorAlert(title: "\(err.localizedDescription)")
+                    self.errorAlert(message: "\(err.localizedDescription)")
                 } else {
-                    self.errorAlert(title: "please try again.")
+                    self.errorAlert(message: "please try again.")
                 }
                 
             }
         }
     }
-    
-    func errorAlert(title: String) {
-        let alert = UIAlertController(title: "Error", message: "We are sorry, \(title)", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default)
-        alert.addAction(action)
-        present(alert,animated: true, completion: nil)
-    }
-    
     
     func uploadProfileImage(_ image:UIImage, completion: @escaping ((_ url:URL?)->())) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -272,7 +260,7 @@ class RegisterViewController: UIViewController {
 
 }
 
-    // MARK: - imagePicker methods
+    // MARK: - UIImagePicker delegate methods
 
 extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

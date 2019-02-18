@@ -18,7 +18,7 @@ class CurrentActivityViewController: UIViewController {
     @IBOutlet weak var noLocationsLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     
-    var selectedActivity: Run?
+    var selectedActivity: Activity?
     var locations: [CLLocation] = []
     
     
@@ -26,23 +26,14 @@ class CurrentActivityViewController: UIViewController {
         super.viewDidLoad()
         
         mapView.delegate = self
-        
         setUI()
-        
         if selectedActivity != nil {
             drawRoute(locations: getArrayOfLocations(), noLocationsLabel: noLocationsLabel, mapView: mapView)
         }
 
     }
     
-    func getArrayOfLocations() -> [CLLocation] {
-        if let activity = selectedActivity {
-            for location in activity.locations {
-                locations.append(CLLocation(latitude: location.latitude, longitude: location.longitude))
-            }
-        }
-        return locations
-    }
+    //    MARK: - UI methods
     
     func setUI() {
         
@@ -54,10 +45,31 @@ class CurrentActivityViewController: UIViewController {
             
             timeLabel.text = secondsToHoursAndMinutes(seconds: activity.duration)
             distanceLabel.text = String(format: "%.0f", ceil(activity.distance)) + " meters"
-            dateLabel.text = formaterr.string(from: activity.timeStamp)
+            dateLabel.text = String(activity.timestamp)
         }
     }
+    
+    func getArrayOfLocations() -> [CLLocation] {
+        
+        var locations = [CLLocation]()
+        
+        if let activity = selectedActivity {
+            if let latitudes = activity.latitudes,
+                let longitudes = activity.longitudes {
+                for i in 0..<longitudes.count {
+                    locations.append(CLLocation(latitude: latitudes[i], longitude: longitudes[i]))
+                }
+            }
+            
+        }
+        
+        return locations
+    }
+    
+    
 }
+
+// MARK: - MKMapView delegate methods
 
 extension CurrentActivityViewController: MKMapViewDelegate {
     

@@ -1,5 +1,5 @@
 //
-//  ActivityViewController.swift
+//  StartActivityViewController.swift
 //  Runnito
 //
 //  Created by Ráchel Polachová on 07/01/2019.

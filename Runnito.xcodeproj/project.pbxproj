@@ -25,14 +25,19 @@
 		CC90F9752211E1240080B6F8 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90F9742211E1240080B6F8 /* RegisterViewController.swift */; };
 		CC90F977221206DE0080B6F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC90F976221206DE0080B6F8 /* Assets.xcassets */; };
 		CC90F97922120C0B0080B6F8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC90F97822120C0B0080B6F8 /* SettingsViewController.swift */; };
-		CCA3ABAC21E11A1E008BCA02 /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3ABAB21E11A1E008BCA02 /* Run.swift */; };
-		CCA3ABAE21E11A3B008BCA02 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3ABAD21E11A3B008BCA02 /* Location.swift */; };
-		CCA3ABB221E3C2FE008BCA02 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3ABB121E3C2FE008BCA02 /* HomeViewController.swift */; };
+		CCA3ABB221E3C2FE008BCA02 /* StartActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA3ABB121E3C2FE008BCA02 /* StartActivityViewController.swift */; };
 		CCC43C4C21EA063C00692236 /* SelectedTypeActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC43C4A21EA063C00692236 /* SelectedTypeActivityTableViewCell.swift */; };
 		CCC43C5421EA232000692236 /* CurrentActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC43C5321EA232000692236 /* CurrentActivityViewController.swift */; };
 		CCD8947621E63CFD004A1425 /* PopupActivityViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCD8947521E63CFD004A1425 /* PopupActivityViewController.storyboard */; };
 		CCDE778921E53494001726ED /* PopupActivityPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDE778821E53494001726ED /* PopupActivityPopupViewController.swift */; };
 		CCFC277D221AEB7B00D8FF5F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CCFC277C221AEB7A00D8FF5F /* GoogleService-Info.plist */; };
+		CCFC2784221B189200D8FF5F /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFC2783221B189200D8FF5F /* Activity.swift */; };
+		CCFC2789221B2DBA00D8FF5F /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFC2788221B2DBA00D8FF5F /* UIColorExtension.swift */; };
+		CCFC278C221B302200D8FF5F /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFC278B221B302200D8FF5F /* UserProfile.swift */; };
+		CCFC278E221B305800D8FF5F /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFC278D221B305800D8FF5F /* UserService.swift */; };
+		CCFC2792221B33B100D8FF5F /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFC2791221B33B100D8FF5F /* ImageService.swift */; };
+		CCFC2794221B5D5300D8FF5F /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFC2793221B5D5300D8FF5F /* UIViewControllerExtension.swift */; };
+		CCFC2796221B5EF100D8FF5F /* NewActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFC2795221B5EF100D8FF5F /* NewActivity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,14 +63,19 @@
 		CC90F9742211E1240080B6F8 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		CC90F976221206DE0080B6F8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC90F97822120C0B0080B6F8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		CCA3ABAB21E11A1E008BCA02 /* Run.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
-		CCA3ABAD21E11A3B008BCA02 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
-		CCA3ABB121E3C2FE008BCA02 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		CCA3ABB121E3C2FE008BCA02 /* StartActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartActivityViewController.swift; sourceTree = "<group>"; };
 		CCC43C4A21EA063C00692236 /* SelectedTypeActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedTypeActivityTableViewCell.swift; sourceTree = "<group>"; };
 		CCC43C5321EA232000692236 /* CurrentActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentActivityViewController.swift; sourceTree = "<group>"; };
 		CCD8947521E63CFD004A1425 /* PopupActivityViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PopupActivityViewController.storyboard; sourceTree = "<group>"; };
 		CCDE778821E53494001726ED /* PopupActivityPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupActivityPopupViewController.swift; sourceTree = "<group>"; };
 		CCFC277C221AEB7A00D8FF5F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		CCFC2783221B189200D8FF5F /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		CCFC2788221B2DBA00D8FF5F /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		CCFC278B221B302200D8FF5F /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		CCFC278D221B305800D8FF5F /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		CCFC2791221B33B100D8FF5F /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		CCFC2793221B5D5300D8FF5F /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		CCFC2795221B5EF100D8FF5F /* NewActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewActivity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,14 +96,6 @@
 				C29F3D95505F46DF5724EEDE /* Pods_Runnito.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		CC02472021E8DCDB00985763 /* Enums */ = {
-			isa = PBXGroup;
-			children = (
-				CC02471E21E8D9EE00985763 /* ActivitiesEnum.swift */,
-			);
-			path = Enums;
 			sourceTree = "<group>";
 		};
 		CC02472121E8DCE800985763 /* Delegates */ = {
@@ -125,16 +127,16 @@
 		CC69710B21DFE5BD00435022 /* Runnito */ = {
 			isa = PBXGroup;
 			children = (
+				CCFC2790221B309100D8FF5F /* Services */,
+				CCFC2787221B2DB200D8FF5F /* Extensions */,
 				CCFC277C221AEB7A00D8FF5F /* GoogleService-Info.plist */,
 				CC90F976221206DE0080B6F8 /* Assets.xcassets */,
 				CC90F9672211C83D0080B6F8 /* UI Elements */,
-				CC69710C21DFE5BD00435022 /* AppDelegate.swift */,
-				CCC43C4721EA05F200692236 /* Custom Cells */,
 				CCFE859521E119CA00F693F1 /* Views */,
 				CCFE859421E119B200F693F1 /* Controllers */,
 				CC02472121E8DCE800985763 /* Delegates */,
-				CC02472021E8DCDB00985763 /* Enums */,
 				CCFE859321E119A700F693F1 /* Data Model */,
+				CC69710C21DFE5BD00435022 /* AppDelegate.swift */,
 				CC69711821DFE5BF00435022 /* Info.plist */,
 			);
 			path = Runnito;
@@ -143,6 +145,7 @@
 		CC90F9672211C83D0080B6F8 /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
+				CCC43C4721EA05F200692236 /* Custom Cells */,
 				CC90F9682211C85B0080B6F8 /* ChooseUIButton.swift */,
 				CC90F96E2211D58E0080B6F8 /* LoginUITextField.swift */,
 				CC90F9722211DFF40080B6F8 /* SubmitUIButton.swift */,
@@ -158,11 +161,31 @@
 			path = "Custom Cells";
 			sourceTree = "<group>";
 		};
+		CCFC2787221B2DB200D8FF5F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CCFC2788221B2DBA00D8FF5F /* UIColorExtension.swift */,
+				CCFC2793221B5D5300D8FF5F /* UIViewControllerExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CCFC2790221B309100D8FF5F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				CCFC278D221B305800D8FF5F /* UserService.swift */,
+				CCFC2791221B33B100D8FF5F /* ImageService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		CCFE859321E119A700F693F1 /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				CCA3ABAB21E11A1E008BCA02 /* Run.swift */,
-				CCA3ABAD21E11A3B008BCA02 /* Location.swift */,
+				CC02471E21E8D9EE00985763 /* ActivitiesEnum.swift */,
+				CCFC2783221B189200D8FF5F /* Activity.swift */,
+				CCFC278B221B302200D8FF5F /* UserProfile.swift */,
+				CCFC2795221B5EF100D8FF5F /* NewActivity.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -170,7 +193,7 @@
 		CCFE859421E119B200F693F1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				CCA3ABB121E3C2FE008BCA02 /* HomeViewController.swift */,
+				CCA3ABB121E3C2FE008BCA02 /* StartActivityViewController.swift */,
 				CCDE778821E53494001726ED /* PopupActivityPopupViewController.swift */,
 				CC69711E21DFE7CA00435022 /* NewActivityViewController.swift */,
 				CC69712021DFF88C00435022 /* SaveActivityViewController.swift */,
@@ -334,20 +357,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC02472F21E93D6E00985763 /* ArchiveTableViewController.swift in Sources */,
+				CCFC2789221B2DBA00D8FF5F /* UIColorExtension.swift in Sources */,
+				CCFC278C221B302200D8FF5F /* UserProfile.swift in Sources */,
 				CC69712121DFF88C00435022 /* SaveActivityViewController.swift in Sources */,
-				CCA3ABAC21E11A1E008BCA02 /* Run.swift in Sources */,
 				CC90F97922120C0B0080B6F8 /* SettingsViewController.swift in Sources */,
 				CC90F9662211C8020080B6F8 /* MenuViewController.swift in Sources */,
+				CCFC278E221B305800D8FF5F /* UserService.swift in Sources */,
+				CCFC2796221B5EF100D8FF5F /* NewActivity.swift in Sources */,
 				CC90F9752211E1240080B6F8 /* RegisterViewController.swift in Sources */,
+				CCFC2792221B33B100D8FF5F /* ImageService.swift in Sources */,
 				CCDE778921E53494001726ED /* PopupActivityPopupViewController.swift in Sources */,
 				CC69711F21DFE7CA00435022 /* NewActivityViewController.swift in Sources */,
 				CC02471F21E8D9EE00985763 /* ActivitiesEnum.swift in Sources */,
-				CCA3ABB221E3C2FE008BCA02 /* HomeViewController.swift in Sources */,
+				CCFC2784221B189200D8FF5F /* Activity.swift in Sources */,
+				CCA3ABB221E3C2FE008BCA02 /* StartActivityViewController.swift in Sources */,
 				CC69710D21DFE5BD00435022 /* AppDelegate.swift in Sources */,
 				CC90F9732211DFF40080B6F8 /* SubmitUIButton.swift in Sources */,
+				CCFC2794221B5D5300D8FF5F /* UIViewControllerExtension.swift in Sources */,
 				CCC43C5421EA232000692236 /* CurrentActivityViewController.swift in Sources */,
 				CC90F9692211C85B0080B6F8 /* ChooseUIButton.swift in Sources */,
-				CCA3ABAE21E11A3B008BCA02 /* Location.swift in Sources */,
 				CC90F96B2211D4F10080B6F8 /* LoginViewController.swift in Sources */,
 				CC02473521E9452800985763 /* SelectedTypeActivityTableViewController.swift in Sources */,
 				CCC43C4C21EA063C00692236 /* SelectedTypeActivityTableViewCell.swift in Sources */,

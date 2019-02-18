@@ -33,12 +33,7 @@ class MenuViewController: UIViewController {
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if Auth.auth().currentUser != nil {
-            self.performSegue(withIdentifier: "toHomeSegue", sender: self)
-        }
-    }
+    //    MARK: - UI methods
     
     func setupUI() {
         loginButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true

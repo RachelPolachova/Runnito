@@ -61,18 +61,21 @@ class PopupActivityPopupViewController: UIViewController {
                     
                 } else {
                     
-                    let alert = UIAlertController(title: "Please insert smaller number", message: "Insert number smaller than \(Int.max)", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Too big number", message: "Insert number smaller than \(Int.max)", preferredStyle: .alert)
                         let okButton = UIAlertAction(title: "OK", style: .default)
                         alert.addAction(okButton)
                         present(alert,animated: true)
                     
                 }
-                }
             }
         }
+    }
+    
+    //    MARK: - UI methods
     
     func setupUI() {
         if (activity) {
+            // choose activity
             everyLabel.isHidden = true
             timeNotifierLabel.isHidden = true
             valueField.isHidden = true
@@ -80,6 +83,7 @@ class PopupActivityPopupViewController: UIViewController {
             activitiesPickerView.delegate = self
             activitiesPickerView.dataSource = self
         } else {
+            // notifier
             activitiesPickerView.isHidden = true
             titleLabel.text = "Notifier"
         }
@@ -87,7 +91,7 @@ class PopupActivityPopupViewController: UIViewController {
     
 }
 
-// MARK: Extensions
+// MARK: - UIPickerView delegate methods
 
 extension PopupActivityPopupViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -109,6 +113,8 @@ extension PopupActivityPopupViewController: UIPickerViewDelegate, UIPickerViewDa
         }
     }
 }
+
+// MARK: - UITextFieldDelegate methods
 
 extension PopupActivityPopupViewController: UITextFieldDelegate {
     
