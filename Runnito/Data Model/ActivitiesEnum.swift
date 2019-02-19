@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum ActivitiesEnum: Int, CaseIterable {
     case walking = 0
@@ -20,6 +21,19 @@ enum ActivitiesEnum: Int, CaseIterable {
         case .running: return "Running"
         case .cycling: return "Cycling"
         case .hiking: return "Hiking"
+        }
+    }
+    
+    var image: UIImage {
+        switch self {
+        case .walking:
+            return UIImage(named: "walking")!
+        case .running:
+            return UIImage(named: "running")!
+        case .cycling:
+            return UIImage(named: "cycling")!
+        case.hiking:
+            return UIImage(named: "hiking")!
         }
     }
     

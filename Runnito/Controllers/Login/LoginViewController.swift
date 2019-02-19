@@ -53,7 +53,6 @@ class LoginViewController: UIViewController {
     
     func setupUI() {
         self.view.backgroundColor = UIColor.RunnitoColors.darkGray
-        self.navigationController?.navigationBar.tintColor = UIColor.RunnitoColors.darkGray
     }
     
     func setupLayout() {

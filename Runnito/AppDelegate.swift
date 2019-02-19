@@ -19,23 +19,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         
+        window = UIWindow(frame: UIScreen.main.bounds)
         
         Database.database().isPersistenceEnabled = true
 
         // in case that user is logged out because of some reason, not just by pressing log out button
         let authListener = Auth.auth().addStateDidChangeListener { auth, user in
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             if user != nil {
                 UserService.observeUser(uid: user!.uid, completion: { (userProfile) in
                     UserService.currentUserProfile = userProfile
                 })
-                    let controller = storyBoard.instantiateViewController(withIdentifier: "MainTabBarViewController")
+                    let controller = MainTabBarViewController()
                     self.window?.rootViewController = controller
                     self.window?.makeKeyAndVisible()
             } else {
                 UserService.currentUserProfile = nil
-                let controller = storyBoard.instantiateViewController(withIdentifier: "MenuViewController")
-                self.window?.rootViewController = controller
+                let controller = MenuViewController()
+                let rootController = UINavigationController(rootViewController: controller)
+                self.window?.rootViewController = rootController
                 self.window?.makeKeyAndVisible()
             }
         }

@@ -61,6 +61,7 @@ class MenuViewController: UIViewController {
     
     func setupUI() {
         view.backgroundColor = UIColor.RunnitoColors.darkGray
+        self.navigationController?.navigationBar.tintColor = UIColor.RunnitoColors.darkGray
     }
     
     func setupLayout() {
@@ -88,12 +89,15 @@ class MenuViewController: UIViewController {
     
     @objc func loginButtonPressed(sender: ChooseUIButton) {
         sender.pulsate()
-        performSegue(withIdentifier: "goToLoginSegue", sender: self)
+        let loginVC = LoginViewController()
+        self.navigationController?.pushViewController(loginVC, animated: true)
+        
     }
     
     @objc func registerButtonPressed(sender: ChooseUIButton) {
         sender.pulsate()
-        performSegue(withIdentifier: "goToRegisterSegue", sender: self)
+        let registerVC = RegisterViewController()
+        self.navigationController?.pushViewController(registerVC, animated: true)
     }
     
 

@@ -14,6 +14,19 @@ extension UIViewController {
     
     //    MARK: - Time conversion methods
     
+    func convertDateFromFirebaseTimestamp(timestamp: Double) -> String {
+        
+        let converted = NSDate(timeIntervalSince1970: timestamp / 1000)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = NSTimeZone.local
+        dateFormatter.locale = Locale(identifier: "en_GB")
+        dateFormatter.setLocalizedDateFormatFromTemplate("MMMMd, hh:mm")
+        let time = dateFormatter.string(from: converted as Date)
+        
+        return time
+    }
+    
     func secondsToHoursAndMinutes(seconds: Int) -> String {
         var h = "00"
         var m = "00"
