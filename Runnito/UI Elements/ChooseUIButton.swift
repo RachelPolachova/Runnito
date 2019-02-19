@@ -16,11 +16,12 @@ class ChooseUIButton: UIButton {
     }
     
     func commonInit() {
-        layer.cornerRadius = 0
-        layer.borderWidth = 1
-        layer.borderColor = UIColor(hexString: "F25652").cgColor
-        self.setTitleColor(UIColor(hexString: "F25652"), for: .normal)
+        layer.borderWidth = 2
+        layer.borderColor = UIColor.RunnitoColors.white.cgColor
+        self.setTitleColor(UIColor.RunnitoColors.white, for: .normal)
         translatesAutoresizingMaskIntoConstraints = false
+        clipsToBounds = true
+        layer.cornerRadius = self.frame.size.height / 2
     }
     
     required init?(coder aDecoder: NSCoder) {

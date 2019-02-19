@@ -13,29 +13,64 @@ import Firebase
 
 class SaveActivityViewController: UIViewController, MKMapViewDelegate {
 
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var distanceLabel: UILabel!
-    @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var noLocationsLabel: UILabel!
+    var timeLabel = TimeLabel()
+    var dateLabel: UnitsLabel = {
+        let label = UnitsLabel()
+        label.textAlignment = .center
+        return label
+    }()
     
-//    let realm = try! Realm()
+    var distanceLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = UIColor.RunnitoColors.white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    var distanceUnitsLabel: UnitsLabel = {
+        let label = UnitsLabel()
+        label.textAlignment = .center
+        label.text = "meters"
+        return label
+    }()
+    
+    var mapView: MKMapView = {
+        let mapView = MKMapView()
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        return mapView
+    }()
+    var noLocationsLabel: UILabel = {
+        let label = UILabel()
+        label.text = "No locations"
+        label.textColor = UIColor.RunnitoColors.white
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     
-    let date = Date()
-    let formaterr = DateFormatter()
-    
-//    var locationsList: [CLLocation] = []
-//    var duration = 0
-//    var distance = 0.0
-//    var pickedActivity = ActivitiesEnum(rawValue: 0)
     var activity: NewActivity?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         mapView.delegate = self
-        setUI()
+        view.addSubview(dateLabel)
+        view.addSubview(timeLabel)
+        view.addSubview(distanceLabel)
+        view.addSubview(distanceUnitsLabel)
+        view.addSubview(noLocationsLabel)
+        view.addSubview(mapView)
+        
+        setupUI()
+        setupLayout()
+        
+        let saveBarButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveButtonPressed(_:)))
+        let cancelBarButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButtonPressed(_:)))
+        self.navigationItem.rightBarButtonItem = saveBarButton
+        self.navigationItem.leftBarButtonItem = cancelBarButton
+        
         
         if let activity = activity {
             drawRoute(locations: activity.locationsList, noLocationsLabel: noLocationsLabel, mapView: mapView)
@@ -44,19 +79,52 @@ class SaveActivityViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: UI methods
     
-    func setUI() {
-        formaterr.dateFormat = "dd.MM.yyyy"
+    func setupUI() {
+        
+        self.view.backgroundColor = UIColor.RunnitoColors.darkBlue
+        
+        let date = Date()
+        let formatterr = DateFormatter()
+        formatterr.dateFormat = "dd.MM.yyyy"
         
         if let activity = activity {
             timeLabel.text = secondsToHoursAndMinutes(seconds: activity.duration)
             let dist = String(format: "%.0f", ceil(activity.distance))
             distanceLabel.text = "\(dist) meters"
         }
-        dateLabel.text = formaterr.string(from: date)
-        noLocationsLabel.isHidden = true
+        dateLabel.text = formatterr.string(from: date)
+        noLocationsLabel.isHidden = false
     }
     
-    
+    func setupLayout() {
+
+        
+        
+        dateLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25).isActive = true
+        dateLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        dateLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        timeLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 5).isActive = true
+        timeLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        timeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+
+        distanceLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 25).isActive = true
+        distanceLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        distanceLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+
+        distanceUnitsLabel.topAnchor.constraint(equalTo: distanceLabel.bottomAnchor, constant: 5).isActive = true
+        distanceUnitsLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        distanceUnitsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+
+        mapView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        mapView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        mapView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        mapView.heightAnchor.constraint(equalToConstant: view.frame.height / 2).isActive = true
+        
+        noLocationsLabel.bottomAnchor.constraint(equalTo: mapView.topAnchor, constant: -10).isActive = true
+        noLocationsLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        noLocationsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
     
     // MARK: Map methods
     
@@ -70,7 +138,11 @@ class SaveActivityViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: Saving data
     
-    @IBAction func saveButtonPressed(_ sender: Any) {
+    @objc func cancelButtonPressed(_ sender: UIBarButtonItem) {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    @objc func saveButtonPressed(_ sender: UIBarButtonItem) {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         var latAray = [Double]()
@@ -86,7 +158,19 @@ class SaveActivityViewController: UIViewController, MKMapViewDelegate {
         }
         
         if let uid = Auth.auth().currentUser?.uid {
+            
+            
             let activitiesRef = Database.database().reference().child("users/profile/\(uid)/activities/\(activity.pickedActivity.description)").childByAutoId()
+            
+            isConnected { (isConnected) in
+                if isConnected {
+                    print("🌈 Yay, is connected!")
+                } else {
+                    self.presentErrorAlert(message: "cannot connect to database. Data will be saved when connection will be successful.")
+                }
+            }
+            
+            self.navigationController?.popToRootViewController(animated: true)
             
             let postObject = [
                 "distance": activity.distance,
@@ -98,61 +182,27 @@ class SaveActivityViewController: UIViewController, MKMapViewDelegate {
                 "activityTimestamps": timeStampArray
                 ] as [String:Any]
             
-            
+            print("🐽 before setvalue!")
             activitiesRef.setValue(postObject) { (error, reference) in
+                
                 if error == nil {
                     print("🌈 success")
-                    self.navigationController?.popToRootViewController(animated: true)
                 } else {
-                    self.errorAlert(message: "\(error?.localizedDescription)")
+                    print("🔥 Cannot save!")
+                    self.presentErrorAlert(message: "\(error?.localizedDescription)")
                 }
             }
+        } else {
+            print("🔥 no uid")
+            self.presentErrorAlert(message: "something went wrong. Please, try again.")
         }
     }
     
-}
-
-extension UIViewController {
-    
-    func drawRoute(locations: [CLLocation], noLocationsLabel: UILabel, mapView: MKMapView) {
-        
-        if locations.count < 2 {
-            noLocationsLabel.isHidden = false
-        } else {
-
-            for i in 0 ..< locations.count-1 {
-
-                let sourceLocation = CLLocationCoordinate2D(latitude: locations[i].coordinate.latitude, longitude: locations[i].coordinate.longitude)
-                let destinationLocation = CLLocationCoordinate2D(latitude: locations[i+1].coordinate.latitude, longitude: locations[i+1].coordinate.longitude)
-
-
-                let sourcePlacemark = MKPlacemark(coordinate: sourceLocation)
-                let destinationPlacemark = MKPlacemark(coordinate: destinationLocation)
-
-                let directionRequest = MKDirections.Request()
-
-                directionRequest.source = MKMapItem(placemark: sourcePlacemark)
-                directionRequest.destination = MKMapItem(placemark: destinationPlacemark)
-                directionRequest.transportType = .walking
-
-                let directions = MKDirections(request: directionRequest)
-
-                directions.calculate { (response, error) in
-                    guard let directionResponse = response else {
-                        if let err = error {
-                            print("error getting directions in draw route: \(err.localizedDescription)")
-                        }
-                        return
-                    }
-                    let route = directionResponse.routes[0]
-                    mapView.addOverlay(route.polyline, level: .aboveRoads)
-
-                    let center = CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude)
-                    mapView.region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
-                }
-            }
-        }
-        
+    func isConnected(completionHandler : @escaping (Bool) -> ()) {
+        let connectedRef = Database.database().reference(withPath: ".info/connected")
+        connectedRef.observe(.value, with: { snapshot in
+            completionHandler((snapshot.value as? Bool)!)
+        })
     }
     
 }

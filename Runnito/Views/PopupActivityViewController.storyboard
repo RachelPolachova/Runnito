@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Popup Activity Popup View Controller-->
+        <!--Details Of Activity View Controller-->
         <scene sceneID="ar5-Nz-rhY">
             <objects>
-                <viewController modalPresentationStyle="overCurrentContext" id="8HX-yK-UG9" customClass="PopupActivityPopupViewController" customModule="Runnito" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="overCurrentContext" id="8HX-yK-UG9" customClass="DetailsOfActivityViewController" customModule="Runnito" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="P4F-ZE-AoD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -43,9 +43,6 @@
                                         <state key="normal" title="OK">
                                             <color key="titleColor" red="0.94374519589999994" green="0.94100564720000002" blue="0.88424259419999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
-                                        <connections>
-                                            <action selector="okButtonPressed:" destination="8HX-yK-UG9" eventType="touchUpInside" id="6fh-pc-URa"/>
-                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Every" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zMD-eU-bb3">
                                         <rect key="frame" x="61" y="147.5" width="50" height="21"/>

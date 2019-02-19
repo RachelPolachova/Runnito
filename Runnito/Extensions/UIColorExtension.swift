@@ -11,7 +11,11 @@ import UIKit
 extension UIColor {
     
     struct RunnitoColors {
-        static let red = UIColor(hexString: "F25652")
+        static let red = UIColor(hexString: "F80652")
+        static let white = UIColor(hexString: "E8F1F8")
+        static let lightBlue = UIColor(hexString: "ADC4D6")
+        static let darkGray = UIColor(hexString: "222F3F")
+        static let darkBlue = UIColor(hexString: "101C28")
     }
     
     convenience init(hexString: String) {

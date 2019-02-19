@@ -8,7 +8,6 @@
 
 import UIKit
 import MapKit
-import RealmSwift
 
 class CurrentActivityViewController: UIViewController {
     

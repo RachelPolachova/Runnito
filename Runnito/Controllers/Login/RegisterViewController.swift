@@ -12,165 +12,138 @@ import Firebase
 
 class RegisterViewController: UIViewController {
 
-    var profilePictureImageView : UIImageView = {
-        let imageView = UIImageView()
-        let image = UIImage(named: "user-circle-b")!
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.isUserInteractionEnabled = true
-        imageView.tintColor = .lightGray
-        imageView.layer.borderWidth = 2.0
-        imageView.layer.borderColor = UIColor(hexString: "F25652").cgColor
-        imageView.layer.masksToBounds = false
-        imageView.layer.cornerRadius = image.size.width / 2
-        imageView.clipsToBounds = true
-        imageView.image = image
-        return imageView
-    }()
+    var profilePictureImageView : ProfileImageView?
     
-    var changeProfilePictureButton : SubmitUIButton = {
-        let button = SubmitUIButton()
+    var changeProfilePictureButton : UIButton = {
+        let button = UIButton()
         button.setTitle("Tap to change", for: .normal)
-        button.tintColor = .lightGray
+        button.titleLabel?.font = button.titleLabel?.font.withSize(18)
+        button.titleLabel?.textColor = UIColor.RunnitoColors.red
+        button.tintColor = UIColor.RunnitoColors.red
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    var imagePicker = UIImagePickerController()
-    
-    var activityView:UIActivityIndicatorView!
-    
     var usernameTextField : LoginUITextField = {
-        let textField = LoginUITextField()
-        textField.placeholder = "Username"
+        let textField = LoginUITextField(frame: CGRect(x: 0, y: 0, width: 200, height: 55))
+        textField.setPlaceholder(placeholder: "Username")
         textField.setIcon(UIImage(named: "user")!)
         return textField
     }()
     
     var mailTextField : LoginUITextField = {
-        let textField = LoginUITextField()
-        textField.placeholder = "e-mail"
+        let textField = LoginUITextField(frame: CGRect(x: 0, y: 0, width: 200, height: 55))
+        textField.setPlaceholder(placeholder: "E-mail")
         textField.setIcon(UIImage(named: "envelope")!)
         return textField
     }()
     
     var passwordTextField : LoginUITextField = {
-        let textField = LoginUITextField()
+        let textField = LoginUITextField(frame: CGRect(x: 0, y: 0, width: 200, height: 55))
         textField.isSecureTextEntry = true
         textField.setIcon(UIImage(named: "key")!)
         return textField
     }()
     
-    var registerButton : SubmitUIButton = {
-        let button = SubmitUIButton()
-        button.setTitle("Register", for: .normal)
-        button.backgroundColor = .blue
-        return button
-    }()
+    var imagePicker = UIImagePickerController()
+    var activityView:UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         imagePicker.allowsEditing = true
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
         
+        setupUI()
+        
+        profilePictureImageView = ProfileImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.height / 8, height: self.view.frame.height / 8))
         
         view.addSubview(usernameTextField)
         view.addSubview(mailTextField)
         view.addSubview(passwordTextField)
-        view.addSubview(registerButton)
-        view.addSubview(profilePictureImageView)
+        view.addSubview(profilePictureImageView!)
         view.addSubview(changeProfilePictureButton)
-        
-        let imageTap = UITapGestureRecognizer(target: self, action: #selector(pictureButtonPressed))
-        profilePictureImageView.addGestureRecognizer(imageTap)
-        changeProfilePictureButton.addTarget(self, action: #selector(pictureButtonPressed), for: .touchUpInside)
-        
-        
-        registerButton.addTarget(self, action: #selector(handleRegistration), for: .touchUpInside)
-        usernameTextField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
-        mailTextField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
-        passwordTextField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
-        
-        
-        setRegisterButton(enabled: false)
-        
-        activityView = UIActivityIndicatorView(style: .gray)
-        activityView.color = .red
-        activityView.frame = CGRect(x: 0, y: 0, width: 50.0, height: 50.0)
         view.addSubview(activityView)
-        
         
         setLayout()
         
+        let signUpButton = UIBarButtonItem(title: "Sign up", style: .done, target: self, action: #selector(signUpButtonPressed))
+        self.navigationItem.rightBarButtonItem = signUpButton
+        
+        let imageTap = UITapGestureRecognizer(target: self, action: #selector(changePictureButtonPressed))
+        profilePictureImageView!.addGestureRecognizer(imageTap)
+        changeProfilePictureButton.addTarget(self, action: #selector(changePictureButtonPressed), for: .touchUpInside)
+        self.hideKeyboardWhenTappedAround()
+        
     }
     
-    //    MARK: - UI methods
+    //    MARK: - UI and Layout methods
     
-    
-    @objc func textFieldChanged() {
-        let username = usernameTextField.text
-        let mail = mailTextField.text
-        let password = passwordTextField.text
+    func setupUI() {
+        self.view.backgroundColor = UIColor.RunnitoColors.darkGray
+        self.navigationController?.navigationBar.tintColor = UIColor.RunnitoColors.darkGray
         
-        let formFilled = username != "" && mail != "" && password != ""
-        setRegisterButton(enabled: formFilled)
-        
+        activityView = UIActivityIndicatorView(style: .whiteLarge)
+        activityView.color = UIColor.RunnitoColors.red
+        activityView.frame = CGRect(x: 0, y: 0, width: 150.0, height: 150.0)
+        activityView.center = self.view.center
     }
     
     func setLayout() {
         
-        profilePictureImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
-        profilePictureImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        profilePictureImageView.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        profilePictureImageView.heightAnchor.constraint(equalToConstant: 200).isActive = true
         
-        changeProfilePictureButton.topAnchor.constraint(equalTo: profilePictureImageView.bottomAnchor, constant: 15).isActive = true
+        let image = UIImage(named: "user-circle-b")!
+        
+        if let profilePicture = profilePictureImageView {
+            profilePicture.image = image
+            profilePicture.isUserInteractionEnabled = true
+            
+            profilePicture.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15).isActive = true
+            profilePicture.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+            profilePicture.widthAnchor.constraint(equalToConstant: self.view.frame.height / 8).isActive = true
+            profilePicture.heightAnchor.constraint(equalToConstant: self.view.frame.height / 8).isActive = true
+            
+            changeProfilePictureButton.topAnchor.constraint(equalTo: profilePicture.bottomAnchor, constant: 10).isActive = true
+        }
         changeProfilePictureButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         usernameTextField.topAnchor.constraint(equalTo: changeProfilePictureButton.bottomAnchor, constant: 25).isActive = true
         usernameTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        usernameTextField.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        usernameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
+        usernameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50).isActive = true
+        usernameTextField.heightAnchor.constraint(equalToConstant: 55).isActive = true
         
         mailTextField.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 25).isActive = true
         mailTextField.centerXAnchor.constraint(equalTo: usernameTextField.centerXAnchor).isActive = true
-        mailTextField.widthAnchor.constraint(equalTo: usernameTextField.widthAnchor)
+        mailTextField.leadingAnchor.constraint(equalTo: usernameTextField.leadingAnchor).isActive = true
+        mailTextField.trailingAnchor.constraint(equalTo: usernameTextField.trailingAnchor).isActive = true
+        mailTextField.heightAnchor.constraint(equalTo: usernameTextField.heightAnchor).isActive = true
         
         passwordTextField.topAnchor.constraint(equalTo: mailTextField.bottomAnchor, constant: 25).isActive = true
         passwordTextField.centerXAnchor.constraint(equalTo: mailTextField.centerXAnchor).isActive = true
-        passwordTextField.widthAnchor.constraint(equalTo: mailTextField.widthAnchor).isActive = true
-        
-        registerButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
-        registerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        registerButton.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        passwordTextField.leadingAnchor.constraint(equalTo: mailTextField.leadingAnchor).isActive = true
+        passwordTextField.trailingAnchor.constraint(equalTo: mailTextField.trailingAnchor).isActive = true
+        passwordTextField.heightAnchor.constraint(equalTo: mailTextField.heightAnchor).isActive = true
         
     }
     
-    @objc func pictureButtonPressed() {
+    
+    @objc func changePictureButtonPressed() {
         self.present(imagePicker, animated: true, completion: nil)
-    }
-    
-    func setRegisterButton(enabled: Bool) {
-        if enabled {
-            registerButton.alpha = 1.0
-            registerButton.isEnabled = true
-        } else {
-            registerButton.alpha = 0.5
-            registerButton.isEnabled = false
-        }
     }
     
     //    MARK: - Firebase methods
     
-    @objc func handleRegistration() {
+    @objc func signUpButtonPressed() {
         
         print("😱 login pressed")
         
         guard let username = usernameTextField.text else { return }
         guard let email = mailTextField.text else { return }
         guard let pass = passwordTextField.text else { return }
-        guard let image = profilePictureImageView.image else { return }
+        guard let image = profilePictureImageView!.image else { return }
         
-        setRegisterButton(enabled: false)
         activityView.startAnimating()
         
         Auth.auth().createUser(withEmail: email, password: pass) { user, error in
@@ -194,22 +167,22 @@ class RegisterViewController: UIViewController {
                                 
                             } else {
                                 self.activityView.stopAnimating()
-                                self.errorAlert(message: "unable to commit changes.")
+                                self.presentErrorAlert(message: "unable to commit changes.")
                                 print("Error: \(error!.localizedDescription)")
                             }
                         }
                     } else {
                         self.activityView.stopAnimating()
-                        self.errorAlert(message: "unable to upload profile image")
+                        self.presentErrorAlert(message: "unable to upload profile image")
                     }
                 }
                 
             } else {
                 self.activityView.stopAnimating()
                 if let err = error {
-                    self.errorAlert(message: "\(err.localizedDescription)")
+                    self.presentErrorAlert(message: "\(err.localizedDescription)")
                 } else {
-                    self.errorAlert(message: "please try again.")
+                    self.presentErrorAlert(message: "please try again.")
                 }
                 
             }
@@ -270,12 +243,9 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            profilePictureImageView.image = image
+            profilePictureImageView!.image = image
         }
         
         picker.dismiss(animated: true, completion: nil)
     }
-    
-    
-    
 }

@@ -52,7 +52,7 @@ class SelectedTypeActivityTableViewController: UITableViewController {
                         }
                         
                     } else {
-                        self.errorAlert(message: "please try again")
+                        self.presentErrorAlert(message: "please try again")
                     }
                 }
                 self.activities = tempActivities

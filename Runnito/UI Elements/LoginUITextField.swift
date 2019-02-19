@@ -21,7 +21,14 @@ class LoginUITextField: UITextField {
     
     func commonInit() {
         translatesAutoresizingMaskIntoConstraints = false
-        tintColor = .lightGray
+        tintColor = UIColor.RunnitoColors.white.withAlphaComponent(0.50)
+        layer.borderWidth = 2
+        layer.borderColor = UIColor.RunnitoColors.darkBlue.cgColor
+        layer.backgroundColor = UIColor.RunnitoColors.darkBlue.cgColor
+        textColor = UIColor.RunnitoColors.white
+        translatesAutoresizingMaskIntoConstraints = false
+        clipsToBounds = true
+        layer.cornerRadius = self.frame.size.height / 2
     }
     
     func setIcon(_ image: UIImage) {
@@ -29,10 +36,14 @@ class LoginUITextField: UITextField {
             CGRect(x: 10, y: 5, width: 20, height: 20))
         iconView.image = image
         let iconContainerView: UIView = UIView(frame:
-            CGRect(x: 20, y: 0, width: 40, height: 30))
+            CGRect(x: 40, y: 0, width: 40, height: 30))
         iconContainerView.addSubview(iconView)
         leftView = iconContainerView
         leftViewMode = .always
+    }
+    
+    func setPlaceholder(placeholder: String) {
+        self.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.RunnitoColors.white.withAlphaComponent(0.5)])
     }
 
 

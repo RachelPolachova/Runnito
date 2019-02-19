@@ -11,11 +11,40 @@ import CoreLocation
 import AVFoundation
 
 class NewActivityViewController: UIViewController {
-
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var doneButton: UIButton!
-    @IBOutlet weak var distanceLabel: UILabel!
-    @IBOutlet weak var paceLabel: UILabel!
+    
+    var container: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = UIColor.RunnitoColors.darkGray
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    var timeLabel: TimeLabel = {
+        let label = TimeLabel()
+        label.text = "00:00:00"
+        return label
+    }()
+    
+    var doneButton: SubmitUIButton = {
+        let button = SubmitUIButton()
+        button.setTitle("DONE", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    var distanceLabel: UILabel = {
+        let label = UILabel()
+        label.text = "0"
+        label.textColor = UIColor.RunnitoColors.white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    var distanceUnitsLabel: UnitsLabel = {
+        let label = UnitsLabel()
+        label.text = "meters"
+        return label
+    }()
     
     var seconds = 0;
     var timer = Timer();
@@ -38,7 +67,14 @@ class NewActivityViewController: UIViewController {
         let synth = AVSpeechSynthesizer()
         synth.speak(utterance)
         
-        setUI()
+        view.addSubview(container)
+        view.addSubview(timeLabel)
+        view.addSubview(doneButton)
+        view.addSubview(distanceLabel)
+        view.addSubview(distanceUnitsLabel)
+        
+        setupUI()
+        setupLayout()
         setupLocationManager()
         start()
         
@@ -47,13 +83,40 @@ class NewActivityViewController: UIViewController {
 
         NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground(noti:)), name: UIApplication.willEnterForegroundNotification, object: nil)
         
+        doneButton.addTarget(self, action: #selector(doneButtonPressed(_:)), for: .touchUpInside)
+        
     }
     
     // MARK: UI methods
     
-    func setUI() {
-        paceLabel.text = "0"
-        distanceLabel.text = "\(distance)"
+    func setupUI() {
+        view.backgroundColor = UIColor.RunnitoColors.darkBlue
+    }
+    
+    func setupLayout() {
+        container.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+        container.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50).isActive = true
+        container.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
+        container.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50).isActive = true
+        container.layer.cornerRadius = 15
+        
+        timeLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 15).isActive = true
+        timeLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        timeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        distanceLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 25).isActive = true
+        distanceLabel.leadingAnchor.constraint(equalTo: timeLabel.leadingAnchor).isActive = true
+        distanceLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        
+        distanceUnitsLabel.topAnchor.constraint(equalTo: distanceLabel.bottomAnchor, constant: 5).isActive = true
+        distanceUnitsLabel.leadingAnchor.constraint(equalTo: distanceLabel.leadingAnchor).isActive = true
+        distanceUnitsLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        
+        doneButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        doneButton.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
+        doneButton.leadingAnchor.constraint(equalTo: container.leadingAnchor).isActive = true
+        doneButton.trailingAnchor.constraint(equalTo: container.trailingAnchor).isActive = true
+        
     }
     
     // MARK: Timer methods
@@ -171,13 +234,21 @@ class NewActivityViewController: UIViewController {
     
     //    MARK: Finishing activity methods
     
-    @IBAction func doneButtonPressed(_ sender: Any) {
+    @objc func doneButtonPressed(_ sender: SubmitUIButton) {
         
         let alertController = UIAlertController(title: "Done.", message: "Are you sure you are done?", preferredStyle: .alert)
         
         let yesAction = UIAlertAction(title: "Yes", style: .default) { (UIAlertAction) in
             self.timer.invalidate()
-            self.performSegue(withIdentifier: "saveActivitySegue", sender: nil)
+//            self.performSegue(withIdentifier: "saveActivitySegue", sender: nil)
+            
+            let saveActivityVC = SaveActivityViewController()
+            let activity = NewActivity(duration: self.seconds, distance: self.distance.value, locationsList: self.locationsList, pickedActivity: self.pickedActivity ?? ActivitiesEnum(rawValue: 0)!)
+            saveActivityVC.activity = activity
+            self.navigationController?.pushViewController(saveActivityVC, animated: true)
+//            self.present(saveActivityVC, animated: true, completion: nil)
+            
+            
             self.seconds = 0
             self.timeLabel.text = self.secondsToHoursAndMinutes(seconds: self.seconds)
             self.locationManager.stopUpdatingLocation()
@@ -192,15 +263,15 @@ class NewActivityViewController: UIViewController {
     
     // MARK: Segue methods
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let saveController = segue.destination as! SaveActivityViewController
-        let activity = NewActivity(duration: seconds, distance: distance.value, locationsList: locationsList, pickedActivity: pickedActivity ?? ActivitiesEnum(rawValue: 0)!)
-        saveController.activity = activity
-//        saveController.duration = seconds
-//        saveController.distance = distance.value
-//        saveController.locationsList = locationsList
-//        saveController.pickedActivity = pickedActivity
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let saveController = segue.destination as! SaveActivityViewController
+//        let activity = NewActivity(duration: seconds, distance: distance.value, locationsList: locationsList, pickedActivity: pickedActivity ?? ActivitiesEnum(rawValue: 0)!)
+//        saveController.activity = activity
+////        saveController.duration = seconds
+////        saveController.distance = distance.value
+////        saveController.locationsList = locationsList
+////        saveController.pickedActivity = pickedActivity
+//    }
     
 }
 

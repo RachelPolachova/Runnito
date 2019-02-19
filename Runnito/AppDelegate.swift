@@ -20,7 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         
-        
+        Database.database().isPersistenceEnabled = true
+
         // in case that user is logged out because of some reason, not just by pressing log out button
         let authListener = Auth.auth().addStateDidChangeListener { auth, user in
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)

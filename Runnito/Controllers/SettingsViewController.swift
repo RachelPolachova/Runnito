@@ -101,7 +101,7 @@ class SettingsViewController: UIViewController {
         do {
             try Auth.auth().signOut()
         } catch let err {
-            errorAlert(message: "error while singing out: \(err.localizedDescription)")
+            presentErrorAlert(message: "error while singing out: \(err.localizedDescription)")
         }
     }
     

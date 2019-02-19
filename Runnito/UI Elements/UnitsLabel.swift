@@ -1,0 +1,27 @@
+//
+//  UnitsLabel.swift
+//  Runnito
+//
+//  Created by Ráchel Polachová on 19/02/2019.
+//  Copyright © 2019 Rachel Polachova. All rights reserved.
+//
+
+import Foundation
+import UIKit
+
+class UnitsLabel: UILabel {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func commonInit() {
+        textColor = UIColor.RunnitoColors.white
+        font = self.font.withSize(15)
+        translatesAutoresizingMaskIntoConstraints = false
+    }
+}
