@@ -8,16 +8,11 @@
 
 import UIKit
 
-class StartActivityViewController: UIViewController {
-
-//    @IBOutlet weak var chooseActivityButton: UIButton!
-//    @IBOutlet weak var notifierButton: UIButton!
-//    @IBOutlet weak var startButton: UIButton!
-    
+class StartActivityViewController: BaseViewController {
     
     var container: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.RunnitoColors.darkGray
+//        imageView.backgroundColor = UIColor.RunnitoColors.darkGray
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -27,7 +22,7 @@ class StartActivityViewController: UIViewController {
         let image = UIImage(named: "runner")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = image
-        imageView.tintColor = UIColor.RunnitoColors.red
+//        imageView.tintColor = UIColor.RunnitoColors.red
         return imageView
     }()
     
@@ -49,7 +44,6 @@ class StartActivityViewController: UIViewController {
         return button
     }()
     
-    
     var pickedActivity = ActivitiesEnum(rawValue: 0)
     var notifierValue = 0
     
@@ -68,6 +62,7 @@ class StartActivityViewController: UIViewController {
         startButton.addTarget(self, action: #selector(startButtonPressed(_:)), for: .touchUpInside)
         notifierButton.addTarget(self, action: #selector(notifierButtonPressed(_:)), for: .touchUpInside)
         chooseActivityButton.addTarget(self, action: #selector(activityTypeButtonPressed(_:)), for: .touchUpInside)
+        
     }
     
     //    MARK: - UI Methods
@@ -82,8 +77,6 @@ class StartActivityViewController: UIViewController {
         let guide = view.safeAreaLayoutGuide
         let height = guide.layoutFrame.size.height
         
-//        container.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
-//        container.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100).isActive = true
         container.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor).isActive = true
         container.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
         container.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50).isActive = true
@@ -110,8 +103,32 @@ class StartActivityViewController: UIViewController {
         
         
     }
-
-
+    
+    override func enableDarkMode() {
+        super.enableDarkMode()
+        container.backgroundColor = UIColor.RunnitoColors.darkGray
+        shoeImage.tintColor = UIColor.RunnitoColors.red
+        chooseActivityButton.setTitleColor(UIColor.RunnitoColors.white, for: .normal)
+        chooseActivityButton.layer.borderColor = UIColor.RunnitoColors.white.cgColor
+        notifierButton.setTitleColor(UIColor.RunnitoColors.white, for: .normal)
+        notifierButton.layer.borderColor = UIColor.RunnitoColors.white.cgColor
+        startButton.backgroundColor = UIColor.RunnitoColors.red
+        startButton.setTitleColor(UIColor.RunnitoColors.white, for: .normal)
+    }
+    
+    override func disableDarkMode() {
+        super.disableDarkMode()
+        container.backgroundColor = UIColor.RunnitoColors.lightBlue
+        shoeImage.tintColor = UIColor.RunnitoColors.red
+        chooseActivityButton.setTitleColor(UIColor.RunnitoColors.darkGray, for: .normal)
+        chooseActivityButton.layer.borderColor = UIColor.RunnitoColors.darkGray.cgColor
+        notifierButton.setTitleColor(UIColor.RunnitoColors.darkGray, for: .normal)
+        notifierButton.layer.borderColor = UIColor.RunnitoColors.darkGray.cgColor
+        startButton.backgroundColor = UIColor.RunnitoColors.red
+        startButton.setTitleColor(UIColor.RunnitoColors.darkGray, for: .normal)
+    }
+    
+    
     @objc func startButtonPressed(_ sender: SubmitUIButton) {
         
         let newActivity = NewActivityViewController()

@@ -9,14 +9,14 @@
 import UIKit
 import Firebase
 
-class SelectedTypeActivityTableViewController: UIViewController {
+class SelectedTypeActivityTableViewController: BaseViewController {
     
     var selectedTypeOfActivity: ActivitiesEnum?
     var selectedActivity: Activity?
     var activities = [Activity]()
     var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = UIColor.RunnitoColors.darkGray
+//        tableView.backgroundColor = UIColor.RunnitoColors.darkGray
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -32,11 +32,29 @@ class SelectedTypeActivityTableViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    //    MARK: - UI methods
+    
     func setupLayout() {
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+    }
+    
+    override func enableDarkMode() {
+        super.enableDarkMode()
+        tableView.backgroundColor = UIColor.RunnitoColors.darkBlue
+        tableView.reloadData()
+    }
+    
+    override func disableDarkMode() {
+        super.disableDarkMode()
+        tableView.backgroundColor = UIColor.RunnitoColors.white
+        tableView.reloadData()
     }
     
     //    MARK: - Firebase methods
@@ -53,7 +71,6 @@ class SelectedTypeActivityTableViewController: UIViewController {
                 for child in snapshot.children {
                     if let childSnapshot = child as? DataSnapshot,
                         let dict = childSnapshot.value as? [String:Any],
-                        let activityType = dict["activityType"] as? String,
                         let duration = dict["duration"] as? Int,
                         let distance = dict["distance"] as? Double,
                         let timestamp = dict["timeStamp"] as? Double {
@@ -93,6 +110,11 @@ extension SelectedTypeActivityTableViewController: UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if activities.count < 1 {
+            return 1
+        }
+        
         return activities.count
     }
     
@@ -102,21 +124,24 @@ extension SelectedTypeActivityTableViewController: UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let textColor = self.darkMode ? UIColor.RunnitoColors.white : UIColor.RunnitoColors.darkGray
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "selectedTypeCell", for: indexPath) as! SelectedTypeActivityTableViewCell
-        let activity = activities[indexPath.row]
-        let time = self.convertDateFromFirebaseTimestamp(timestamp: activity.timestamp)
-//        let converted = NSDate(timeIntervalSince1970: activity.timestamp / 1000)
-//
-//        // converting timestamp from Firebase
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.timeZone = NSTimeZone.local
-//        dateFormatter.locale = Locale(identifier: "en_GB")
-//        dateFormatter.setLocalizedDateFormatFromTemplate("MMMMd, hh:mm")
-//        let time = dateFormatter.string(from: converted as Date)
-//
-        cell.distanceLabel.text = String(format: "%.0f", ceil(activity.distance))
-        cell.dateLabel.text = time
-        cell.timeLabel.text = secondsToHoursAndMinutes(seconds: activity.duration)
+        if activities.count > 0 {
+            let activity = activities[indexPath.row]
+            let time = self.convertDateFromFirebaseTimestamp(timestamp: activity.timestamp)
+            
+            cell.distanceLabel.text = String(format: "%.0f", ceil(activity.distance))
+            cell.distanceLabel.textColor = textColor
+            cell.dateLabel.text = time
+            cell.dateLabel.textColor = textColor.withAlphaComponent(0.7)
+            cell.timeLabel.text = secondsToHoursAndMinutes(seconds: activity.duration)
+        } else {
+            cell.timeLabel.text = "No activities."
+        }
+        
+        
+        
         cell.backgroundColor = .clear
         cell.selectionStyle = .none
         
@@ -125,22 +150,20 @@ extension SelectedTypeActivityTableViewController: UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedActivity = activities[indexPath.row]
-        
-        let currentActivityVC = CurrentActivityViewController()
-        currentActivityVC.selectedActivity = selectedActivity
-        self.navigationController?.pushViewController(currentActivityVC, animated: true)
+        if activities.count > 0 {
+            selectedActivity = activities[indexPath.row]
+            
+            let currentActivityVC = CurrentActivityViewController()
+            currentActivityVC.selectedActivity = selectedActivity
+            self.navigationController?.pushViewController(currentActivityVC, animated: true)
+        }
     }
     
-    //    MARK: Segue methods
-//    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let destinationVC = segue.destination as! CurrentActivityViewController
-//        destinationVC.selectedActivity = selectedActivity
-//    }
-    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+        if activities.count > 0 {
+            return true
+        }
+        return false
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

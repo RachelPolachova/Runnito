@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 
-class RegisterViewController: UIViewController {
+class RegisterViewController: BaseViewController {
 
     var profilePictureImageView : ProfileImageView?
     
@@ -26,15 +26,15 @@ class RegisterViewController: UIViewController {
     
     var usernameTextField : LoginUITextField = {
         let textField = LoginUITextField(frame: CGRect(x: 0, y: 0, width: 200, height: 55))
-        textField.setPlaceholder(placeholder: "Username")
         textField.setIcon(UIImage(named: "user")!)
+        textField.returnKeyType = UIReturnKeyType.next
         return textField
     }()
     
     var mailTextField : LoginUITextField = {
         let textField = LoginUITextField(frame: CGRect(x: 0, y: 0, width: 200, height: 55))
-        textField.setPlaceholder(placeholder: "E-mail")
         textField.setIcon(UIImage(named: "envelope")!)
+        textField.returnKeyType = UIReturnKeyType.next
         return textField
     }()
     
@@ -42,6 +42,7 @@ class RegisterViewController: UIViewController {
         let textField = LoginUITextField(frame: CGRect(x: 0, y: 0, width: 200, height: 55))
         textField.isSecureTextEntry = true
         textField.setIcon(UIImage(named: "key")!)
+        textField.returnKeyType = UIReturnKeyType.done
         return textField
     }()
     
@@ -54,9 +55,7 @@ class RegisterViewController: UIViewController {
         imagePicker.allowsEditing = true
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
-        
         setupUI()
-        
         profilePictureImageView = ProfileImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.height / 8, height: self.view.frame.height / 8))
         
         view.addSubview(usernameTextField)
@@ -65,6 +64,9 @@ class RegisterViewController: UIViewController {
         view.addSubview(profilePictureImageView!)
         view.addSubview(changeProfilePictureButton)
         view.addSubview(activityView)
+        usernameTextField.delegate = self
+        mailTextField.delegate = self
+        passwordTextField.delegate = self
         
         setLayout()
         
@@ -76,6 +78,10 @@ class RegisterViewController: UIViewController {
         changeProfilePictureButton.addTarget(self, action: #selector(changePictureButtonPressed), for: .touchUpInside)
         self.hideKeyboardWhenTappedAround()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     //    MARK: - UI and Layout methods
@@ -97,6 +103,7 @@ class RegisterViewController: UIViewController {
         
         if let profilePicture = profilePictureImageView {
             profilePicture.image = image
+            print("🐮 Picture added!")
             profilePicture.isUserInteractionEnabled = true
             
             profilePicture.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15).isActive = true
@@ -126,6 +133,46 @@ class RegisterViewController: UIViewController {
         passwordTextField.trailingAnchor.constraint(equalTo: mailTextField.trailingAnchor).isActive = true
         passwordTextField.heightAnchor.constraint(equalTo: mailTextField.heightAnchor).isActive = true
         
+    }
+    
+    override func enableDarkMode() {
+        super.enableDarkMode()
+        changeProfilePictureButton.setTitleColor(UIColor.RunnitoColors.white, for: .normal)
+        profilePictureImageView?.tintColor = UIColor.RunnitoColors.darkGray
+        usernameTextField.textColor = UIColor.RunnitoColors.white
+        usernameTextField.layer.borderColor = UIColor.RunnitoColors.darkGray.cgColor
+        usernameTextField.backgroundColor = UIColor.RunnitoColors.darkGray
+        usernameTextField.tintColor = UIColor.RunnitoColors.white
+        usernameTextField.setPlaceholder(placeholder: "Username", color: UIColor.RunnitoColors.white)
+        mailTextField.textColor = UIColor.RunnitoColors.white
+        mailTextField.layer.borderColor = UIColor.RunnitoColors.darkGray.cgColor
+        mailTextField.backgroundColor = UIColor.RunnitoColors.darkGray
+        mailTextField.tintColor = UIColor.RunnitoColors.white
+        mailTextField.setPlaceholder(placeholder: "E-mail", color: UIColor.RunnitoColors.white)
+        passwordTextField.textColor = UIColor.RunnitoColors.white
+        passwordTextField.layer.borderColor = UIColor.RunnitoColors.darkGray.cgColor
+        passwordTextField.backgroundColor = UIColor.RunnitoColors.darkGray
+        passwordTextField.tintColor = UIColor.RunnitoColors.white
+    }
+    
+    override func disableDarkMode() {
+        super.disableDarkMode()
+        changeProfilePictureButton.setTitleColor(UIColor.RunnitoColors.darkGray, for: .normal)
+        profilePictureImageView?.tintColor = UIColor.RunnitoColors.lightBlue
+        usernameTextField.textColor = UIColor.RunnitoColors.darkGray
+        usernameTextField.layer.borderColor = UIColor.RunnitoColors.lightBlue.cgColor
+        usernameTextField.backgroundColor = UIColor.RunnitoColors.lightBlue
+        usernameTextField.tintColor = UIColor.RunnitoColors.darkGray
+        usernameTextField.setPlaceholder(placeholder: "Username", color: UIColor.RunnitoColors.darkGray)
+        mailTextField.textColor = UIColor.RunnitoColors.darkGray
+        mailTextField.layer.borderColor = UIColor.RunnitoColors.lightBlue.cgColor
+        mailTextField.backgroundColor = UIColor.RunnitoColors.lightBlue
+        mailTextField.tintColor = UIColor.RunnitoColors.darkGray
+        mailTextField.setPlaceholder(placeholder: "E-mail", color: UIColor.RunnitoColors.darkGray)
+        passwordTextField.textColor = UIColor.RunnitoColors.darkGray
+        passwordTextField.layer.borderColor = UIColor.RunnitoColors.lightBlue.cgColor
+        passwordTextField.backgroundColor = UIColor.RunnitoColors.lightBlue
+        passwordTextField.tintColor = UIColor.RunnitoColors.darkGray
     }
     
     
@@ -248,4 +295,21 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
         
         picker.dismiss(animated: true, completion: nil)
     }
+}
+
+//    MARK: - Keyboard methods
+
+extension RegisterViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        if textField == usernameTextField {
+            mailTextField.becomeFirstResponder()
+        }
+        if textField == mailTextField {
+            passwordTextField.becomeFirstResponder()
+        }
+        return true
+    }
+    
 }

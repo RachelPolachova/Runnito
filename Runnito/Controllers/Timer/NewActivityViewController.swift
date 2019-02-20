@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import AVFoundation
 
-class NewActivityViewController: UIViewController {
+class NewActivityViewController: BaseViewController {
     
     var container: UIImageView = {
         let imageView = UIImageView()
@@ -74,7 +74,6 @@ class NewActivityViewController: UIViewController {
         view.addSubview(distanceLabel)
         view.addSubview(distanceUnitsLabel)
         
-        setupUI()
         setupLayout()
         setupLocationManager()
         start()
@@ -84,21 +83,27 @@ class NewActivityViewController: UIViewController {
 
         NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground(noti:)), name: UIApplication.willEnterForegroundNotification, object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(darkModeEnabled(_:)), name: .darkModeEnabled, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(darkModeDisabled(_:)), name: .darkModeDisabled, object: nil)
+        
         doneButton.addTarget(self, action: #selector(doneButtonPressed(_:)), for: .touchUpInside)
         
     }
     
-    // MARK: UI methods
-    
-    func setupUI() {
-        view.backgroundColor = UIColor.RunnitoColors.darkBlue
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
+    // MARK: UI methods
+    
     func setupLayout() {
-        container.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
-        container.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100).isActive = true
+        let guide = view.safeAreaLayoutGuide
+        let height = guide.layoutFrame.size.height
+
+        container.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor).isActive = true
         container.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
         container.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50).isActive = true
+        container.heightAnchor.constraint(equalToConstant: height * 0.70).isActive = true
         container.layer.cornerRadius = 15
         
         timeLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 50).isActive = true
@@ -120,9 +125,33 @@ class NewActivityViewController: UIViewController {
         
     }
     
+    override func enableDarkMode() {
+        super.enableDarkMode()
+        container.backgroundColor = UIColor.RunnitoColors.darkGray
+        distanceLabel.textColor = UIColor.RunnitoColors.white
+        distanceUnitsLabel.textColor = UIColor.RunnitoColors.white
+        doneButton.setTitleColor(UIColor.RunnitoColors.white, for: .normal)
+    }
+    
+    override func disableDarkMode() {
+        super.disableDarkMode()
+        container.backgroundColor = UIColor.RunnitoColors.lightBlue
+        distanceLabel.textColor = UIColor.RunnitoColors.darkGray
+        distanceUnitsLabel.textColor = UIColor.RunnitoColors.darkGray
+        doneButton.setTitleColor(UIColor.RunnitoColors.darkGray, for: .normal)
+    }
+    
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .darkModeEnabled, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .darkModeDisabled, object: nil)
+    }
+    
     // MARK: Timer methods
     
     func start() {
+        print("⭐️ started with distance: \(distance.value)")
+        print("⭐️ started with locations: \(locationsList.count)")
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
         locationManager.startUpdatingLocation()
     }
@@ -247,10 +276,8 @@ class NewActivityViewController: UIViewController {
             let activity = NewActivity(duration: self.seconds, distance: self.distance.value, locationsList: self.locationsList, pickedActivity: self.pickedActivity ?? ActivitiesEnum(rawValue: 0)!)
             saveActivityVC.activity = activity
             self.navigationController?.pushViewController(saveActivityVC, animated: true)
-//            self.present(saveActivityVC, animated: true, completion: nil)
-            
-            
             self.seconds = 0
+            self.distance = Measurement(value: 0, unit: UnitLength.meters)
             self.timeLabel.text = self.secondsToHoursAndMinutes(seconds: self.seconds)
             self.locationManager.stopUpdatingLocation()
             
@@ -262,18 +289,6 @@ class NewActivityViewController: UIViewController {
         self.present(alertController,animated: true,completion: nil)
     }
     
-    // MARK: Segue methods
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let saveController = segue.destination as! SaveActivityViewController
-//        let activity = NewActivity(duration: seconds, distance: distance.value, locationsList: locationsList, pickedActivity: pickedActivity ?? ActivitiesEnum(rawValue: 0)!)
-//        saveController.activity = activity
-////        saveController.duration = seconds
-////        saveController.distance = distance.value
-////        saveController.locationsList = locationsList
-////        saveController.pickedActivity = pickedActivity
-//    }
-    
 }
 
 //  MARK: Location manager
@@ -283,8 +298,11 @@ extension NewActivityViewController: CLLocationManagerDelegate {
     func setupLocationManager() {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
+        locationManager.requestAlwaysAuthorization()
         locationManager.activityType = .fitness
         locationManager.distanceFilter = 10
+        locationManager.pausesLocationUpdatesAutomatically = false
+        locationManager.allowsBackgroundLocationUpdates = true
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

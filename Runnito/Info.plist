@@ -20,6 +20,8 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Runnito needs access to your location in order to record and track your activy in background.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Runnito needs access to your location in order to record and track your activy.</string>
 	<key>NSMicrophoneUsageDescription</key>

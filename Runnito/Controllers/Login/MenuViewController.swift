@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class MenuViewController: UIViewController {
+class MenuViewController: BaseViewController {
 
     var loginButton : ChooseUIButton = {
         let button = ChooseUIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 55))
@@ -27,7 +27,7 @@ class MenuViewController: UIViewController {
         let image = UIImage(named: "runner")!
         imageView.contentMode = .scaleAspectFit
         imageView.image = image
-        imageView.tintColor = UIColor.RunnitoColors.white
+//        imageView.tintColor = UIColor.RunnitoColors.white
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -55,6 +55,10 @@ class MenuViewController: UIViewController {
         self.view.addSubview(registerButton)
         setupLayout()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     //    MARK: - UI methods
@@ -86,6 +90,25 @@ class MenuViewController: UIViewController {
         registerButton.widthAnchor.constraint(equalToConstant: 200).isActive = true
         registerButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
     }
+    
+    override func enableDarkMode() {
+        super.enableDarkMode()
+        logoImageView.tintColor = UIColor.RunnitoColors.white
+        loginButton.setTitleColor(UIColor.RunnitoColors.white, for: .normal)
+        loginButton.layer.borderColor = UIColor.RunnitoColors.white.cgColor
+        registerButton.setTitleColor(UIColor.RunnitoColors.white, for: .normal)
+        registerButton.layer.borderColor = UIColor.RunnitoColors.white.cgColor
+    }
+    
+    override func disableDarkMode() {
+        super.disableDarkMode()
+        logoImageView.tintColor = UIColor.RunnitoColors.darkGray
+        loginButton.setTitleColor(UIColor.RunnitoColors.darkGray, for: .normal)
+        loginButton.layer.borderColor = UIColor.RunnitoColors.darkGray.cgColor
+        registerButton.setTitleColor(UIColor.RunnitoColors.darkGray, for: .normal)
+        registerButton.layer.borderColor = UIColor.RunnitoColors.darkGray.cgColor
+    }
+    
     
     @objc func loginButtonPressed(sender: ChooseUIButton) {
         sender.pulsate()

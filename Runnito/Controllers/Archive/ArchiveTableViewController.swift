@@ -8,13 +8,13 @@
 
 import UIKit
 
-class ArchiveTableViewController: UIViewController {
+class ArchiveTableViewController: BaseViewController {
     
     var selectedTypeOfActivity: ActivitiesEnum?
     var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = UIColor.RunnitoColors.darkGray
+//        tableView.backgroundColor = UIColor.RunnitoColors.darkGray
         return tableView
     }()
     
@@ -26,9 +26,12 @@ class ArchiveTableViewController: UIViewController {
         self.view.addSubview(tableView)
         setupUI()
         setupLayout()
-        
-        
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     
     func setupUI() {
         
@@ -39,6 +42,18 @@ class ArchiveTableViewController: UIViewController {
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+    }
+    
+    override func enableDarkMode() {
+        super.enableDarkMode()
+        tableView.backgroundColor = UIColor.RunnitoColors.darkBlue
+        tableView.reloadData()
+    }
+    
+    override func disableDarkMode() {
+        super.disableDarkMode()
+        tableView.backgroundColor = UIColor.RunnitoColors.white
+        tableView.reloadData()
     }
 
     
@@ -67,6 +82,7 @@ extension ArchiveTableViewController: UITableViewDelegate, UITableViewDataSource
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "archiveCell", for: indexPath) as! ArchiveTableViewCell
         cell.backgroundColor = .clear
         cell.selectionStyle = .none
+        cell.title.textColor = self.darkMode ? UIColor.RunnitoColors.white : UIColor.RunnitoColors.darkGray
         if let type = ActivitiesEnum(rawValue: indexPath.row) {
             cell.title.text = type.description
             cell.setImage(activityType: type)

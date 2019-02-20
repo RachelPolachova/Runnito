@@ -12,6 +12,8 @@
 		CC02471F21E8D9EE00985763 /* ActivitiesEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02471E21E8D9EE00985763 /* ActivitiesEnum.swift */; };
 		CC02472F21E93D6E00985763 /* ArchiveTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02472E21E93D6E00985763 /* ArchiveTableViewController.swift */; };
 		CC02473521E9452800985763 /* SelectedTypeActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02473421E9452800985763 /* SelectedTypeActivityTableViewController.swift */; };
+		CC212C1D221DB1330012B50D /* NotificationNameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC212C1C221DB1330012B50D /* NotificationNameExtension.swift */; };
+		CC212C21221DCC8E0012B50D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC212C20221DCC8E0012B50D /* BaseViewController.swift */; };
 		CC3F48E9221C2EB6005328AD /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3F48E8221C2EB6005328AD /* UIButtonExtension.swift */; };
 		CC3F48EB221C3492005328AD /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3F48EA221C3492005328AD /* ProfileImageView.swift */; };
 		CC3F48EE221C67B6005328AD /* TimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3F48ED221C67B6005328AD /* TimeLabel.swift */; };
@@ -52,6 +54,8 @@
 		CC02471E21E8D9EE00985763 /* ActivitiesEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesEnum.swift; sourceTree = "<group>"; };
 		CC02472E21E93D6E00985763 /* ArchiveTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveTableViewController.swift; sourceTree = "<group>"; };
 		CC02473421E9452800985763 /* SelectedTypeActivityTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedTypeActivityTableViewController.swift; sourceTree = "<group>"; };
+		CC212C1C221DB1330012B50D /* NotificationNameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNameExtension.swift; sourceTree = "<group>"; };
+		CC212C20221DCC8E0012B50D /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		CC3F48E8221C2EB6005328AD /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		CC3F48EA221C3492005328AD /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		CC3F48ED221C67B6005328AD /* TimeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLabel.swift; sourceTree = "<group>"; };
@@ -210,6 +214,7 @@
 				CCFC2788221B2DBA00D8FF5F /* UIColorExtension.swift */,
 				CCFC2793221B5D5300D8FF5F /* UIViewControllerExtension.swift */,
 				CC3F48E8221C2EB6005328AD /* UIButtonExtension.swift */,
+				CC212C1C221DB1330012B50D /* NotificationNameExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -242,6 +247,7 @@
 				CC3F48EC221C4939005328AD /* Login */,
 				CC90F97822120C0B0080B6F8 /* SettingsViewController.swift */,
 				CC48A495221C97B800EF74E9 /* MainTabBarViewController.swift */,
+				CC212C20221DCC8E0012B50D /* BaseViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -388,6 +394,7 @@
 			files = (
 				CC02472F21E93D6E00985763 /* ArchiveTableViewController.swift in Sources */,
 				CCFC2789221B2DBA00D8FF5F /* UIColorExtension.swift in Sources */,
+				CC212C21221DCC8E0012B50D /* BaseViewController.swift in Sources */,
 				CCFC278C221B302200D8FF5F /* UserProfile.swift in Sources */,
 				CC69712121DFF88C00435022 /* SaveActivityViewController.swift in Sources */,
 				CC3F48F0221C691B005328AD /* UnitsLabel.swift in Sources */,
@@ -404,6 +411,7 @@
 				CC48A496221C97B800EF74E9 /* MainTabBarViewController.swift in Sources */,
 				CCFC2784221B189200D8FF5F /* Activity.swift in Sources */,
 				CCA3ABB221E3C2FE008BCA02 /* StartActivityViewController.swift in Sources */,
+				CC212C1D221DB1330012B50D /* NotificationNameExtension.swift in Sources */,
 				CC3F48EB221C3492005328AD /* ProfileImageView.swift in Sources */,
 				CC69710D21DFE5BD00435022 /* AppDelegate.swift in Sources */,
 				CC90F9732211DFF40080B6F8 /* SubmitUIButton.swift in Sources */,

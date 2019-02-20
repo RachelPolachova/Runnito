@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailsOfActivityViewController: UIViewController {
+class DetailsOfActivityViewController: BaseViewController {
 
     var everyLabel: UILabel = {
         let label = UILabel()
@@ -48,7 +48,7 @@ class DetailsOfActivityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.RunnitoColors.darkGray
+//        view.backgroundColor = UIColor.RunnitoColors.darkGray
         view.addSubview(activitiesPickerView)
         view.addSubview(everyLabel)
         view.addSubview(valueField)
@@ -59,9 +59,13 @@ class DetailsOfActivityViewController: UIViewController {
         
         let addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed(_:)))
         self.navigationItem.rightBarButtonItem = addBarButton
-        
+
         self.dismissKeyboard()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     //    MARK: - UI methods
@@ -102,8 +106,26 @@ class DetailsOfActivityViewController: UIViewController {
         activitiesPickerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
+    override func disableDarkMode() {
+        super.disableDarkMode()
+        everyLabel.textColor = UIColor.RunnitoColors.darkGray
+        timeNotifierLabel.textColor = UIColor.RunnitoColors.darkGray
+        valueField.textColor = UIColor.RunnitoColors.darkGray
+        valueField.backgroundColor = UIColor.RunnitoColors.lightBlue
+        activitiesPickerView.reloadAllComponents()
+    }
     
-        @objc func addButtonPressed(_ sender: UIBarButtonItem) {
+    override func enableDarkMode() {
+        super.enableDarkMode()
+        everyLabel.textColor = UIColor.RunnitoColors.white
+        timeNotifierLabel.textColor = UIColor.RunnitoColors.white
+        valueField.textColor = UIColor.RunnitoColors.white
+        valueField.backgroundColor = UIColor.RunnitoColors.darkGray
+        activitiesPickerView.reloadAllComponents()
+    }
+    
+    
+    @objc func addButtonPressed(_ sender: UIBarButtonItem) {
         
         if (activity) {
             
@@ -135,9 +157,6 @@ class DetailsOfActivityViewController: UIViewController {
             }
         }
     }
-    
-    
-    
 }
 
 // MARK: - UIPickerView delegate methods
@@ -157,7 +176,7 @@ extension DetailsOfActivityViewController: UIPickerViewDelegate, UIPickerViewDat
     }
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        return NSAttributedString(string: ActivitiesEnum(rawValue: row)?.description ?? "", attributes: [NSAttributedString.Key.foregroundColor : UIColor.RunnitoColors.white])
+        return NSAttributedString(string: ActivitiesEnum(rawValue: row)?.description ?? "", attributes: [NSAttributedString.Key.foregroundColor : darkMode ? UIColor.RunnitoColors.white : UIColor.RunnitoColors.darkGray])
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

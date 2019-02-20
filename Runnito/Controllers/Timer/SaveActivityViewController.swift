@@ -11,7 +11,7 @@ import CoreLocation
 import MapKit
 import Firebase
 
-class SaveActivityViewController: UIViewController, MKMapViewDelegate {
+class SaveActivityViewController: BaseViewController, MKMapViewDelegate {
 
     var timeLabel = TimeLabel()
     var dateLabel: UnitsLabel = {
@@ -25,13 +25,6 @@ class SaveActivityViewController: UIViewController, MKMapViewDelegate {
         label.textAlignment = .center
         label.textColor = UIColor.RunnitoColors.white
         label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    var distanceUnitsLabel: UnitsLabel = {
-        let label = UnitsLabel()
-        label.textAlignment = .center
-        label.text = "meters"
         return label
     }()
     
@@ -59,7 +52,6 @@ class SaveActivityViewController: UIViewController, MKMapViewDelegate {
         view.addSubview(dateLabel)
         view.addSubview(timeLabel)
         view.addSubview(distanceLabel)
-        view.addSubview(distanceUnitsLabel)
         view.addSubview(noLocationsLabel)
         view.addSubview(mapView)
         
@@ -77,6 +69,10 @@ class SaveActivityViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     // MARK: UI methods
     
     func setupUI() {
@@ -90,7 +86,7 @@ class SaveActivityViewController: UIViewController, MKMapViewDelegate {
         if let activity = activity {
             timeLabel.text = secondsToHoursAndMinutes(seconds: activity.duration)
             let dist = String(format: "%.0f", ceil(activity.distance))
-            distanceLabel.text = "\(dist)"
+            distanceLabel.text = "\(dist) meters"
         }
         dateLabel.text = formatterr.string(from: date)
         noLocationsLabel.isHidden = false
@@ -101,7 +97,7 @@ class SaveActivityViewController: UIViewController, MKMapViewDelegate {
         let guide = view.safeAreaLayoutGuide
         let height = guide.layoutFrame.size.height
         
-        dateLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25).isActive = true
+        dateLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15).isActive = true
         dateLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
         dateLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
@@ -109,13 +105,10 @@ class SaveActivityViewController: UIViewController, MKMapViewDelegate {
         timeLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
         timeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 
-        distanceLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 25).isActive = true
+        distanceLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 10).isActive = true
         distanceLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
         distanceLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 
-        distanceUnitsLabel.topAnchor.constraint(equalTo: distanceLabel.bottomAnchor, constant: 5).isActive = true
-        distanceUnitsLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        distanceUnitsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 
         mapView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         mapView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
@@ -125,6 +118,20 @@ class SaveActivityViewController: UIViewController, MKMapViewDelegate {
         noLocationsLabel.bottomAnchor.constraint(equalTo: mapView.topAnchor, constant: -10).isActive = true
         noLocationsLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
         noLocationsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+    
+    override func enableDarkMode() {
+        super.enableDarkMode()
+        dateLabel.textColor = UIColor.RunnitoColors.white
+        distanceLabel.textColor = UIColor.RunnitoColors.white
+        noLocationsLabel.textColor = UIColor.RunnitoColors.white
+    }
+    
+    override func disableDarkMode() {
+        super.disableDarkMode()
+        dateLabel.textColor = UIColor.RunnitoColors.darkGray
+        distanceLabel.textColor = UIColor.RunnitoColors.darkGray
+        noLocationsLabel.textColor = UIColor.RunnitoColors.darkGray
     }
     
     // MARK: Map methods
@@ -177,7 +184,6 @@ class SaveActivityViewController: UIViewController, MKMapViewDelegate {
                 "distance": activity.distance,
                 "duration": activity.duration,
                 "timeStamp": [".sv":"timestamp"], //server time
-                "activityType": activity.pickedActivity.description,
                 "latitudes": latAray,
                 "longitudes": longArray,
                 "activityTimestamps": timeStampArray

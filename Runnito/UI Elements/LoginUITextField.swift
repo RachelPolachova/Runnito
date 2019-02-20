@@ -21,10 +21,10 @@ class LoginUITextField: UITextField {
     
     func commonInit() {
         translatesAutoresizingMaskIntoConstraints = false
-        tintColor = UIColor.RunnitoColors.white.withAlphaComponent(0.50)
+//        tintColor = UIColor.RunnitoColors.white.withAlphaComponent(0.50)
         layer.borderWidth = 2
-        layer.borderColor = UIColor.RunnitoColors.darkBlue.cgColor
-        layer.backgroundColor = UIColor.RunnitoColors.darkBlue.cgColor
+//        layer.borderColor = UIColor.RunnitoColors.darkBlue.cgColor
+//        layer.backgroundColor = UIColor.RunnitoColors.darkBlue.cgColor
         textColor = UIColor.RunnitoColors.white
         translatesAutoresizingMaskIntoConstraints = false
         clipsToBounds = true
@@ -42,8 +42,8 @@ class LoginUITextField: UITextField {
         leftViewMode = .always
     }
     
-    func setPlaceholder(placeholder: String) {
-        self.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.RunnitoColors.white.withAlphaComponent(0.5)])
+    func setPlaceholder(placeholder: String, color: UIColor) {
+        self.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: color.withAlphaComponent(0.5)])
     }
 
 

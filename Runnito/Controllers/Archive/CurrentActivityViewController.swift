@@ -9,13 +9,7 @@
 import UIKit
 import MapKit
 
-class CurrentActivityViewController: UIViewController {
-    
-//    @IBOutlet weak var dateLabel: UILabel!
-//    @IBOutlet weak var timeLabel: UILabel!
-//    @IBOutlet weak var distanceLabel: UILabel!
-//    @IBOutlet weak var noLocationsLabel: UILabel!
-//    @IBOutlet weak var mapView: MKMapView!
+class CurrentActivityViewController: BaseViewController {
     
     var timeLabel = TimeLabel()
     var dateLabel: UnitsLabel = {
@@ -29,13 +23,6 @@ class CurrentActivityViewController: UIViewController {
         label.textAlignment = .center
         label.textColor = UIColor.RunnitoColors.white
         label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    var distanceUnitsLabel: UnitsLabel = {
-        let label = UnitsLabel()
-        label.textAlignment = .center
-        label.text = "meters"
         return label
     }()
     
@@ -65,7 +52,6 @@ class CurrentActivityViewController: UIViewController {
         view.addSubview(dateLabel)
         view.addSubview(timeLabel)
         view.addSubview(distanceLabel)
-        view.addSubview(distanceUnitsLabel)
         view.addSubview(noLocationsLabel)
         view.addSubview(mapView)
         
@@ -75,6 +61,10 @@ class CurrentActivityViewController: UIViewController {
             drawRoute(locations: getArrayOfLocations(), noLocationsLabel: noLocationsLabel, mapView: mapView)
         }
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     //    MARK: - UI methods
@@ -88,7 +78,7 @@ class CurrentActivityViewController: UIViewController {
             formaterr.dateFormat = "dd MMM yyyy"
             
             timeLabel.text = secondsToHoursAndMinutes(seconds: activity.duration)
-            distanceLabel.text = String(format: "%.0f", ceil(activity.distance))
+            distanceLabel.text = String(format: "%.0f", ceil(activity.distance)) + " meters"
             dateLabel.text = self.convertDateFromFirebaseTimestamp(timestamp: activity.timestamp)
         }
         
@@ -112,13 +102,9 @@ class CurrentActivityViewController: UIViewController {
         timeLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
         timeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        distanceLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 25).isActive = true
+        distanceLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 10).isActive = true
         distanceLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
         distanceLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        distanceUnitsLabel.topAnchor.constraint(equalTo: distanceLabel.bottomAnchor, constant: 5).isActive = true
-        distanceUnitsLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        distanceUnitsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         mapView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         mapView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
@@ -128,6 +114,20 @@ class CurrentActivityViewController: UIViewController {
         noLocationsLabel.bottomAnchor.constraint(equalTo: mapView.topAnchor, constant: -10).isActive = true
         noLocationsLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
         noLocationsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+    
+    override func enableDarkMode() {
+        super.enableDarkMode()
+        dateLabel.textColor = UIColor.RunnitoColors.white
+        distanceLabel.textColor = UIColor.RunnitoColors.white
+        noLocationsLabel.textColor = UIColor.RunnitoColors.white
+    }
+    
+    override func disableDarkMode() {
+        super.disableDarkMode()
+        dateLabel.textColor = UIColor.RunnitoColors.darkGray
+        distanceLabel.textColor = UIColor.RunnitoColors.darkGray
+        noLocationsLabel.textColor = UIColor.RunnitoColors.darkGray
     }
     
     func getArrayOfLocations() -> [CLLocation] {

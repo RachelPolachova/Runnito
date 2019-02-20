@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: BaseViewController {
     
     var profilePictureImageView : ProfileImageView?
     
@@ -22,9 +22,15 @@ class SettingsViewController: UIViewController {
         return label
     }()
     
+    var darkThemeSwitch: UISwitch = {
+        let themeSwitch = UISwitch()
+        themeSwitch.translatesAutoresizingMaskIntoConstraints = false
+        themeSwitch.isOn = UserDefaults.standard.bool(forKey: "darkMode")
+        themeSwitch.onTintColor = UIColor.RunnitoColors.red
+        return themeSwitch
+    }()
+    
     var loaded = false
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,9 +41,11 @@ class SettingsViewController: UIViewController {
             view.addSubview(profPicView)
         }
         view.addSubview(usernameLabel)
+        view.addSubview(darkThemeSwitch)
         
         let logoutBarButton = UIBarButtonItem(title: "Logout", style: .done, target: self, action: #selector(logoutButtonPressed(_:)))
         self.navigationItem.rightBarButtonItem = logoutBarButton
+        darkThemeSwitch.addTarget(self, action: #selector(themeSwitchValueDidChange(_:)), for: .touchUpInside)
         
         setupUI()
         setupLayout()
@@ -57,7 +65,10 @@ class SettingsViewController: UIViewController {
                 }
             }
         }
+        self.darkMode ? enableDarkMode() : disableDarkMode()
     }
+    
+    //    MARK: - UI methods
     
     func setupUI() {
         view.backgroundColor = UIColor.RunnitoColors.darkGray
@@ -90,7 +101,45 @@ class SettingsViewController: UIViewController {
         usernameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         usernameLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
         
+        darkThemeSwitch.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 25).isActive = true
+        darkThemeSwitch.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -25).isActive = true
+        darkThemeSwitch.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        
     }
+    
+    //    MARK: - Dark mode methods
+    
+    @objc func themeSwitchValueDidChange(_ sender: UISwitch) {
+        self.darkMode = sender.isOn
+        UserDefaults.standard.set(sender.isOn, forKey: "darkMode")
+//        if sender.isOn {
+//            print("🐽 On")
+//            self.darkMode = true
+//            UserDefaults.standard.set(true, forKey: "darkMode")
+//        } else {
+//            print("🐽 Off")
+//            self.darkMode = false
+//            UserDefaults.standard.set(false, forKey: "darkMode")
+//        }
+        
+        NotificationCenter.default.post(name: sender.isOn ? .darkModeEnabled : .darkModeDisabled, object: nil)
+
+    }
+    
+    
+    override func enableDarkMode() {
+        super.enableDarkMode()
+        self.profilePictureImageView?.tintColor = UIColor.RunnitoColors.darkBlue
+        self.usernameLabel.textColor = UIColor.RunnitoColors.white
+    }
+    
+    override func disableDarkMode() {
+        super.disableDarkMode()
+        self.usernameLabel.textColor = UIColor.RunnitoColors.darkGray
+        self.profilePictureImageView?.tintColor = UIColor.lightGray
+    }
+    
+    //    MARK: - Firebase methods
     
     @objc func logoutButtonPressed(_ sender: UIBarButtonItem) {
         do {
