@@ -32,6 +32,7 @@ class DetailsOfActivityViewController: BaseViewController {
         textField.textColor = UIColor.RunnitoColors.white
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.cornerRadius = 5
+        textField.keyboardType = UIKeyboardType.numberPad
         return textField
     }()
     var activitiesPickerView: UIPickerView = {

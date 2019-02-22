@@ -57,21 +57,27 @@ class CurrentActivityViewController: BaseViewController {
         
         setUI()
         setupLayout()
-        if selectedActivity != nil {
-            drawRoute(locations: getArrayOfLocations(), noLocationsLabel: noLocationsLabel, mapView: mapView)
-        }
+        
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print("⭐️ viewWill called")
+        loadMap()
     }
     
     //    MARK: - UI methods
     
     func setUI() {
         
-        noLocationsLabel.isHidden = true
+        let loc = getArrayOfLocations()
+        
+        print("🐽 loc count: \(loc.count)")
+        
+        if loc.count > 0 {
+            noLocationsLabel.isHidden = true
+        }
         
         if let activity = selectedActivity {
             let formaterr = DateFormatter()
@@ -84,8 +90,6 @@ class CurrentActivityViewController: BaseViewController {
         
         self.view.backgroundColor = UIColor.RunnitoColors.darkGray
         
-        
-        noLocationsLabel.isHidden = false
         
     }
     
@@ -147,6 +151,25 @@ class CurrentActivityViewController: BaseViewController {
         return locations
     }
     
+    private func loadMap() {
+        let locations = getArrayOfLocations()
+        guard
+            locations.count > 0,
+            let region = mapRegion(locations: locations)
+            else {
+                let alert = UIAlertController(title: "Error",
+                                              message: "Sorry, this run has no locations saved",
+                                              preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+                present(alert, animated: true)
+                return
+        }
+        
+        mapView.setRegion(region, animated: true)
+        mapView.addOverlay(polyLine(locations: locations))
+    }
+
+    
     
 }
 
@@ -154,10 +177,14 @@ class CurrentActivityViewController: BaseViewController {
 
 extension CurrentActivityViewController: MKMapViewDelegate {
     
+    
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let renderer = MKPolylineRenderer(overlay: overlay)
+        guard let polyline = overlay as? MKPolyline else {
+            return MKOverlayRenderer(overlay: overlay)
+        }
+        let renderer = MKPolylineRenderer(polyline: polyline)
         renderer.strokeColor = UIColor.RunnitoColors.red
-        renderer.lineWidth = 4.0
+        renderer.lineWidth = 3
         return renderer
     }
     

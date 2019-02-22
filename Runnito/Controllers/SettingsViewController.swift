@@ -22,12 +22,19 @@ class SettingsViewController: BaseViewController {
         return label
     }()
     
-    var darkThemeSwitch: UISwitch = {
+    var darkModeSwitch: UISwitch = {
         let themeSwitch = UISwitch()
         themeSwitch.translatesAutoresizingMaskIntoConstraints = false
         themeSwitch.isOn = UserDefaults.standard.bool(forKey: "darkMode")
         themeSwitch.onTintColor = UIColor.RunnitoColors.red
         return themeSwitch
+    }()
+    
+    var darkModeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Dark mode"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     var loaded = false
@@ -41,11 +48,12 @@ class SettingsViewController: BaseViewController {
             view.addSubview(profPicView)
         }
         view.addSubview(usernameLabel)
-        view.addSubview(darkThemeSwitch)
+        view.addSubview(darkModeLabel)
+        view.addSubview(darkModeSwitch)
         
         let logoutBarButton = UIBarButtonItem(title: "Logout", style: .done, target: self, action: #selector(logoutButtonPressed(_:)))
         self.navigationItem.rightBarButtonItem = logoutBarButton
-        darkThemeSwitch.addTarget(self, action: #selector(themeSwitchValueDidChange(_:)), for: .touchUpInside)
+        darkModeSwitch.addTarget(self, action: #selector(themeSwitchValueDidChange(_:)), for: .touchUpInside)
         
         setupUI()
         setupLayout()
@@ -101,9 +109,13 @@ class SettingsViewController: BaseViewController {
         usernameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         usernameLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
         
-        darkThemeSwitch.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 25).isActive = true
-        darkThemeSwitch.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -25).isActive = true
-        darkThemeSwitch.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        darkModeLabel.centerYAnchor.constraint(equalTo: darkModeSwitch.centerYAnchor).isActive = true
+        darkModeLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25).isActive = true
+        darkModeLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        
+        darkModeSwitch.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 25).isActive = true
+        darkModeSwitch.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -25).isActive = true
+//        darkModeSwitch.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
     }
     
@@ -112,15 +124,6 @@ class SettingsViewController: BaseViewController {
     @objc func themeSwitchValueDidChange(_ sender: UISwitch) {
         self.darkMode = sender.isOn
         UserDefaults.standard.set(sender.isOn, forKey: "darkMode")
-//        if sender.isOn {
-//            print("🐽 On")
-//            self.darkMode = true
-//            UserDefaults.standard.set(true, forKey: "darkMode")
-//        } else {
-//            print("🐽 Off")
-//            self.darkMode = false
-//            UserDefaults.standard.set(false, forKey: "darkMode")
-//        }
         
         NotificationCenter.default.post(name: sender.isOn ? .darkModeEnabled : .darkModeDisabled, object: nil)
 
@@ -131,12 +134,14 @@ class SettingsViewController: BaseViewController {
         super.enableDarkMode()
         self.profilePictureImageView?.tintColor = UIColor.RunnitoColors.darkBlue
         self.usernameLabel.textColor = UIColor.RunnitoColors.white
+        self.darkModeLabel.textColor = UIColor.RunnitoColors.white
     }
     
     override func disableDarkMode() {
         super.disableDarkMode()
         self.usernameLabel.textColor = UIColor.RunnitoColors.darkGray
-        self.profilePictureImageView?.tintColor = UIColor.lightGray
+        self.profilePictureImageView?.tintColor = UIColor.RunnitoColors.lightBlue
+        self.darkModeLabel.textColor = UIColor.RunnitoColors.darkGray
     }
     
     //    MARK: - Firebase methods

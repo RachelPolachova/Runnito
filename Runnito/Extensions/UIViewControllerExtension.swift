@@ -69,43 +69,47 @@ extension UIViewController {
     
     //    MARK: - Map methods
     
-    func drawRoute(locations: [CLLocation], noLocationsLabel: UILabel, mapView: MKMapView) {
+    /**
+     display only area of the activity
+     */
+    func mapRegion(locations: [CLLocation]) -> MKCoordinateRegion? {
         
-        if locations.count < 2 {
-            noLocationsLabel.isHidden = false
-        } else {
-            
-            for i in 0 ..< locations.count-1 {
-                
-                let sourceLocation = CLLocationCoordinate2D(latitude: locations[i].coordinate.latitude, longitude: locations[i].coordinate.longitude)
-                let destinationLocation = CLLocationCoordinate2D(latitude: locations[i+1].coordinate.latitude, longitude: locations[i+1].coordinate.longitude)
-                
-                let sourcePlacemark = MKPlacemark(coordinate: sourceLocation)
-                let destinationPlacemark = MKPlacemark(coordinate: destinationLocation)
-                
-                let directionRequest = MKDirections.Request()
-                
-                directionRequest.source = MKMapItem(placemark: sourcePlacemark)
-                directionRequest.destination = MKMapItem(placemark: destinationPlacemark)
-                directionRequest.transportType = .walking
-                
-                let directions = MKDirections(request: directionRequest)
-                
-                directions.calculate { (response, error) in
-                    guard let directionResponse = response else {
-                        if let err = error {
-                            print("error getting directions in draw route: \(err.localizedDescription)")
-                        }
-                        return
-                    }
-                    let route = directionResponse.routes[0]
-                    mapView.addOverlay(route.polyline, level: .aboveRoads)
-                    
-                    let center = CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude)
-                    mapView.region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
-                }
-            }
+        guard
+            locations.count > 0
+            else {
+                return nil
         }
         
+        let latitudes = locations.map { location -> Double in
+            return location.coordinate.latitude
+        }
+        
+        let longitudes = locations.map { location -> Double in
+            return location.coordinate.longitude
+        }
+        
+        let maxLat = latitudes.max()!
+        let minLat = latitudes.min()!
+        let maxLong = longitudes.max()!
+        let minLong = longitudes.min()!
+        
+        let center = CLLocationCoordinate2D(latitude: (minLat + maxLat) / 2,
+                                            longitude: (minLong + maxLong) / 2)
+        let span = MKCoordinateSpan(latitudeDelta: (maxLat - minLat) * 1.3,
+                                    longitudeDelta: (maxLong - minLong) * 1.3)
+        return MKCoordinateRegion(center: center, span: span)
     }
+    
+    
+    /**
+     returns MKPolyline with all locations
+     */
+    func polyLine(locations: [CLLocation]) -> MKPolyline {
+        
+        let coords: [CLLocationCoordinate2D] = locations.map { location in
+            return CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        }
+        return MKPolyline(coordinates: coords, count: coords.count)
+    }
+    
 }

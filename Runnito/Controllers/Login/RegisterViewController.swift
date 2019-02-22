@@ -35,6 +35,7 @@ class RegisterViewController: BaseViewController {
         let textField = LoginUITextField(frame: CGRect(x: 0, y: 0, width: 200, height: 55))
         textField.setIcon(UIImage(named: "envelope")!)
         textField.returnKeyType = UIReturnKeyType.next
+        textField.keyboardType = UIKeyboardType.emailAddress
         return textField
     }()
     

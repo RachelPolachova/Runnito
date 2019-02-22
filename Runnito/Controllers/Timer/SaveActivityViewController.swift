@@ -11,7 +11,7 @@ import CoreLocation
 import MapKit
 import Firebase
 
-class SaveActivityViewController: BaseViewController, MKMapViewDelegate {
+class SaveActivityViewController: BaseViewController {
 
     var timeLabel = TimeLabel()
     var dateLabel: UnitsLabel = {
@@ -63,10 +63,7 @@ class SaveActivityViewController: BaseViewController, MKMapViewDelegate {
         self.navigationItem.rightBarButtonItem = saveBarButton
         self.navigationItem.leftBarButtonItem = cancelBarButton
         
-        
-        if let activity = activity {
-            drawRoute(locations: activity.locationsList, noLocationsLabel: noLocationsLabel, mapView: mapView)
-        }
+        loadMap()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,9 +84,10 @@ class SaveActivityViewController: BaseViewController, MKMapViewDelegate {
             timeLabel.text = secondsToHoursAndMinutes(seconds: activity.duration)
             let dist = String(format: "%.0f", ceil(activity.distance))
             distanceLabel.text = "\(dist) meters"
+            if activity.locationsList.count > 0 {
+                noLocationsLabel.isHidden = true
+            }
         }
-        dateLabel.text = formatterr.string(from: date)
-        noLocationsLabel.isHidden = false
     }
     
     func setupLayout() {
@@ -133,16 +131,6 @@ class SaveActivityViewController: BaseViewController, MKMapViewDelegate {
         distanceLabel.textColor = UIColor.RunnitoColors.darkGray
         noLocationsLabel.textColor = UIColor.RunnitoColors.darkGray
     }
-    
-    // MARK: Map methods
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let renderer = MKPolylineRenderer(overlay: overlay)
-        renderer.strokeColor = UIColor.RunnitoColors.red
-        renderer.lineWidth = 4.0
-        return renderer
-    }
-    
     
     // MARK: Saving data
     
@@ -212,6 +200,40 @@ class SaveActivityViewController: BaseViewController, MKMapViewDelegate {
         })
     }
     
+    // MARK: Map methods
+
+    
+    private func loadMap() {
+        
+        guard
+            let locations = activity?.locationsList,
+            locations.count > 0,
+            let region = mapRegion(locations: locations)
+            else {
+                let alert = UIAlertController(title: "Error",
+                                              message: "Sorry, this run has no locations saved",
+                                              preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+                present(alert, animated: true)
+                return
+        }
+        
+        mapView.setRegion(region, animated: true)
+        mapView.addOverlay(polyLine(locations: locations))
+    }
+    
+}
+
+extension SaveActivityViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        guard let polyline = overlay as? MKPolyline else {
+            return MKOverlayRenderer(overlay: overlay)
+        }
+        let renderer = MKPolylineRenderer(polyline: polyline)
+        renderer.strokeColor = UIColor.RunnitoColors.red
+        renderer.lineWidth = 3
+        return renderer
+    }
 }
 
 
